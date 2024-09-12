@@ -45,12 +45,25 @@ function get_character_composition {
     return 0
 }
 
+lineCount=$(sed -n '$=' "$INPUT")
+processCount=0
 while read testedChar; do
+    ((processCount++))
+    echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
     composition=$(get_character_composition "$testedChar")
     exitCode=$?
     if [ $exitCode == 0 ]; then
-        echo -e "$testedChar\t$composition"
+        if [ -t 1 ]; then
+            echo -e "\r\033[0K$testedChar\t$composition"
+        else
+            echo -e "$testedChar\t$composition"
+        fi
     else
-        echo -e "$testedChar\t$exitCode"
+        if [ -t 1 ]; then
+            echo -e "\r\033[0K$testedChar\t$exitCode"
+        else
+            echo -e "$testedChar\t$exitCode"
+        fi
     fi
 done < "$INPUT"
+echo -e "\r\033[0KProcessing done" >&2
