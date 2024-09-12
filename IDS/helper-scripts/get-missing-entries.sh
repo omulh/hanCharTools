@@ -29,15 +29,15 @@ lineCount=$(sed -n '$=' "$TEMP_FILE")
 processCount=0
 while read testedChar; do
     ((processCount++))
-    echo -ne "Processing line $processCount/$lineCount\033[0K\r" >&2
+    echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
     if ! grep -q -P "\t$testedChar\t" "$IDS_FILE"; then
         if [ -t 1 ]; then
-            echo -e "$testedChar\033[0K\r"
+            echo -e "\r\033[0K$testedChar"
         else
             echo "$testedChar"
         fi
     fi
 done < "./$TEMP_FILE"
-echo -e "Processing done\033[0K" >&2
+echo -e "\r\033[0KProcessing done" >&2
 
 rm "./$TEMP_FILE"
