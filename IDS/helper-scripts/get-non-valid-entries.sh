@@ -14,14 +14,14 @@ sed -i "s/\t\*.*//" "./$TEMP_FILE"
 # Remove everything before the entry's character
 sed -i "s/^[^\t]*\t//" "./$TEMP_FILE"
 
-# Remove composition options with subtraction IDCs,
-# i.e., compositions with ㇯ in them
-while [[ -n $(sed -n "/\t[^\t]*㇯[^\t]*\t/p" "./$TEMP_FILE") ]]; do
-    sed -i "s/\t[^\t]*㇯[^\t]*\t/\t"/ "./$TEMP_FILE"
+# Remove composition options with mirror, variation, rotation or
+# subtraction IDCs, i.e., compositions with any of ⿾〾⿿㇯ in them
+while [[ -n $(sed -n "/\t[^\t]*[⿾〾⿿㇯][^\t]*\t/p" "./$TEMP_FILE") ]]; do
+    sed -i "s/\t[^\t]*[⿾〾⿿㇯][^\t]*\t/\t"/ "./$TEMP_FILE"
 done
-sed -i "s/^[^\t]*㇯[^\t]*\t//" "./$TEMP_FILE"
-sed -i "s/\t[^\t]*㇯[^\t]*$//" "./$TEMP_FILE"
-sed -i "s/^[^\t]*㇯[^\t]*$//" "./$TEMP_FILE"
+sed -i "s/^[^\t]*[⿾〾⿿㇯][^\t]*\t//" "./$TEMP_FILE"
+sed -i "s/\t[^\t]*[⿾〾⿿㇯][^\t]*$//" "./$TEMP_FILE"
+sed -i "s/^[^\t]*[⿾〾⿿㇯][^\t]*$//" "./$TEMP_FILE"
 
 # Remove composition options with unencoded
 # components, i.e. compositions with {} in them
