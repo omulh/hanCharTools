@@ -8,7 +8,7 @@ cp "$IDS_FILE" "./$TEMP_FILE"
 # Remove comment lines
 sed -i '/#/d' "./$TEMP_FILE"
 
-# Remove the notes present in some lines
+# Remove the notes present in some entries
 sed -i "s/\t\*.*//" "./$TEMP_FILE"
 
 # Remove everything before the entry's character
@@ -32,8 +32,8 @@ sed -i "s/^[^\t]*[{}][^\t]*\t//" "./$TEMP_FILE"
 sed -i "s/\t[^\t]*[{}][^\t]*$//" "./$TEMP_FILE"
 sed -i "s/^[^\t]*[{}][^\t]*$//" "./$TEMP_FILE"
 
-# Remove composition options with unrepresentable
-# components, i.e. compositions with ？ in them
+# Remove composition options with unrepresentable components,
+# i.e. compositions with ？(fullwidth question mark) in them
 while [[ -n $(sed -n "/\t[^\t]*？[^\t]*\t/p" "./$TEMP_FILE") ]]; do
     sed -i "s/\t[^\t]*？[^\t]*\t/\t"/ "./$TEMP_FILE"
 done
