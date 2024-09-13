@@ -88,7 +88,7 @@
 #	{18}	left of 即 (F2B4 )	⿻⿺𠄌𫜹丶
 #	{19}	right of 㤤 (F2B5 )	⿻⿻日丿乀
 #	{20}	right of 執 [G source glyph] (F5EE )	丸
-#	{21}	top of 祭豋 (F101 )	？
+#	{21}	top of 祭豋 (F101 )	⿰𱼀⿺㇏㇇
 #	{22}	outside of 与 (F2E6 )	⿺㇉一
 #	{23}	inside of 與 (F2E9 )	⿹⿺𠃑一丨
 #	{24}	right of 水 (F2F2 )	⿺㇏㇒
@@ -103,7 +103,7 @@
 #	{33}	bottom of 雋 (F2C1 )	⿲丨㇅⿰丨𠃌
 #	{34}	bottom of 䇖 (F2B2 )	⿹勹丿
 #	{35}	right of 𠖵 (F2C3 )	⿻几𠄠
-#	{36}	top of 𠢘㥑 (F2C4 )	
+#	{36}	top of 𠢘㥑 (F2C4 )	⿳丆⿵冂二冖
 #	{37}	top of 睿 (F2B6 )	⿱⺊冖
 #	{38}	top of 橐 (F2B9 )	⿱𰀉冖
 #	{39}	left of 卬 (F2C7 )	⿱丿𠄌
@@ -115,7 +115,7 @@
 #	{45}	left of 北 [G source glyph] (F5FB )	⿹⿰一丨㇀
 #	{46}	bottom of 竜 (EC30 )	⿻日乚
 #	{47}	outside of 鳥島 (F2CA )	⿱㇒⿷⿺㇉⺕一
-#	{48}	bottom of 年 [J-form of 㐄] (F5FC )	㐄
+#	{48}	bottom of 年 [J-form of 㐄] (F5FC )	⿻⿱一丨十
 #	{49}	left of 帅 (F2D2 )	⿰丨丿
 #	{50}	top right of 叚 (F319 )	コ
 #	{51}	outside of 馬 (F2CB )	⿺㇉⿻三丨
@@ -125,7 +125,7 @@
 #	{55}	outside of 鹿慶 (F2D0 )	⿸广⿻コ⿰丨丨
 #	{56}	top of 無 (F2CF )	⿳𠂉卌一
 #	{57}	outside of 在 (F2CE )	⿱𠂇丨
-#	{58}	top left of 留 (F2CD )	⿰{39}丶
+#	{58}	top left of 留 (F2CD )	⿰⿱丿𠄌丶
 #	{59}	bottom of 舄 (F13C )	⿹勹灬
 #	{60}	outside of 龜 [H source glyph] (F5F6 )	⿱⺈⿹⿻冂⿰一⿺乚⺊⿱⺕⺕
 #	{61}	outside of 臧 (F5F0 )	⿺⿻⿰⿱𠃊丆厂⿻㇂丿丶
@@ -141,7 +141,7 @@
 #	{71}	left of 𦥑 (F5FE )	⿸⿱丿丨二
 #	{72}	left of 印 [G source glyph] (F5FF )	⿷⿱丿𠄌一
 #	{73}	top of 具 (ECE0 )	⿴𠀃三
-#	{74}	middle of 鄕 [J source glyph] (ECE1 )	？
+#	{74}	middle of 鄕 [J source glyph] (ECE1 )	⿱㇒⿸⿺𠄌𫜹二
 #	{75}	bottom left of 爵 [K source glyph] (ECE2 )	⿰丨⿱𫜹二
 #	{76}	top of 長 (ECE3 )	⿱⿰丨三一
 #	{77}	top of 㒫 (ECE4 )	⿱⿰丨二一
@@ -170,11 +170,11 @@
 #	{100}	之 without top stroke (F3BE )	⿱㇇乀
 #	{101}	left of 癶 (ECF6 )	⿼㇇丶
 #	{102}	right of 癶 (ECF7 )	⿺乀𰀪
-#	{103}	top right of 祭 (ECF8 )	？
+#	{103}	top right of 祭 (ECF8 )	⿺㇏㇇
 #	{104}	top right of 𥋮 (ECF9 )	⿰夕⿺乀𰀪
-#	{105}	top right of 𨄛 (ECFA )	？
-#	{106}	top of 𡛹 (ECFB )	？
-#	{107}	middle of 𡙌 (ECFC )	？
+#	{105}	top right of 𨄛 (ECFA )	龴
+#	{106}	top of 𡛹 (ECFB )	⿰夕⿺乀㇇
+#	{107}	middle of 𡙌 (ECFC )	⿰⿰𠄌丿⿺乀㇇
 #	{108}	top of 冎 [G source glyph] (ECFD )	⿵冂𠃍
 #	{109}	left of 刋 (ECFE )	⿻⿱㇒一丿
 #	{110}	outside of 𭁟 (F29E )	冂
@@ -185,9 +185,9 @@
 #	{115}	top of 𫭣 (EF35 )	⿻𰀪⺀
 #	{116}	inside top of 鹿慶 (EF36 )	⿻コ⿰丨丨
 #	{117}	inside of 𠣏 [G source glyph] (EF37 )	⿺𠃊⺊
-#	{118}	outside of 𠁅 (ECFF )	？
+#	{118}	outside of 𠁅 (ECFF )	⿻⿰丿乛工
 #	{119}	right of 𥛈 (F2E5 )	⿻己⿱工工
-#	{120}	right of 𤛒 without 口 (F2CC )	⿻弓⿱{50}匚
+#	{120}	right of 𤛒 without 口 (F2CC )	⿻弓⿱コ匚
 #	{121}	top of 𣬋 (F5DF )	⿱⺈罒
 #	{122}	bottom of 宐 (F5E3 )	⿴⿱⿰丨𠃍一丶
 #
