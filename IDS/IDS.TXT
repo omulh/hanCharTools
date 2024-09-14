@@ -153,7 +153,7 @@
 #	{83}	top of 帝 (ECE9 )	⿳亠丷冖
 #	{84}	厂 with hooked stroke (ECEA )	⿰丿乛
 #	{85}	广 with hooked stroke (ECEB )	⿰丿⿱丶乛
-#	{86}	first three strokes of 灬 (ECEC )	⿲丶丶丶
+#	{86}	first three strokes of 灬 (ECEC )	⿲㇒丶丶
 #	{87}	top of 亭 (ECED )	⿳亠口冖
 #	{88}	top of 合 (ECEE )	⿵𠆢一
 #	{89}	outside of 𪚧 (F5F7 )	⿱⺈⿹⿻口乚⿱⺕⺕
@@ -167,7 +167,7 @@
 #	{97}	bottom right of 𮊫 or right of 戠 without horizontal stroke (ECF3 )	⿺⿻㇂丿丶
 #	{98}	top of 曹 (F5DE )	⿻一曲
 #	{99}	top of 𢘼 (ECF5 )	⿻𦉫𠄠
-#	{100}	之 without top stroke (F3BE )	⿱㇇乀
+#	{100}	之 without top stroke (F3BE )	⿱㇇㇝
 #	{101}	left of 癶 (ECF6 )	⿼㇇丶
 #	{102}	right of 癶 (ECF7 )	⿺乀𰀪
 #	{103}	top right of 祭 (ECF8 )	⿺㇏㇇
