@@ -110,11 +110,11 @@
 #	{40}	right of 𩤷 (F2C8 )	⿱一⿰⿱⿱丨一𠃑⿱𠃑⿱一丨
 #	{41}	left of 𠜂 [T-form of 𠕋] (F2C6 )	⿻𦉫𠄠
 #	{42}	top of 录 (F2D4 )	彐
-#	{43}	top of 㚑 (F2A4 )	⺕
+#	{43}	top of 㚑 (F2A4 )	彐
 #	{44}	top of 孛 (F2C9 )	⿱十冖
 #	{45}	left of 北 [G source glyph] (F5FB )	⿹⿰一丨㇀
 #	{46}	bottom of 竜 (EC30 )	⿻日乚
-#	{47}	outside of 鳥島 (F2CA )	⿱㇒⿷⿺㇉⺕一
+#	{47}	outside of 鳥島 (F2CA )	⿱㇒⿷⿺㇉彐一
 #	{48}	bottom of 年 [J-form of 㐄] (F5FC )	⿻⿱一丨十
 #	{49}	left of 帅 (F2D2 )	⿰丨丿
 #	{50}	top right of 叚 (F319 )	コ
@@ -127,11 +127,11 @@
 #	{57}	outside of 在 (F2CE )	⿱𠂇丨
 #	{58}	top left of 留 (F2CD )	⿰⿱㇒𠄌丶
 #	{59}	bottom of 舄 (F13C )	⿹勹灬
-#	{60}	outside of 龜 [H source glyph] (F5F6 )	⿱⺈⿹⿻冂⿰一⿺乚⺊⿱⺕⺕
+#	{60}	outside of 龜 [H source glyph] (F5F6 )	⿱⺈⿹⿻冂⿰一⿺乚⺊⿱彐彐
 #	{61}	outside of 臧 (F5F0 )	⿺⿻⿰⿱𠃊丆厂⿻㇂丿丶
 #	{62}	bottom of 華 (F13D )	⿻⿻⿲一⿰丨丨一十一
 #	{63}	
-#	{64}	bottom left of 龜 [G source glyph] (F314 )	⿱⺕⺕
+#	{64}	bottom left of 龜 [G source glyph] (F314 )	⿱彐彐
 #	{65}	bottom right of 龜 [G source glyph] (F318 )	⿼コ㐅
 #	{66}	bottom right of 𪚴 (F31B )	⿼コ⿵⿷⿼⿶㐅丶丶丶丶
 #	{67}	middle of 髙 and 𠅘 (F2F7 )	⿴⿰丨丨𠄠
@@ -156,7 +156,7 @@
 #	{86}	first three strokes of 灬 (ECEC )	⿲㇒丶丶
 #	{87}	top of 亭 (ECED )	⿳亠口冖
 #	{88}	top of 合 (ECEE )	⿵𠆢一
-#	{89}	outside of 𪚧 (F5F7 )	⿱⺈⿹⿻口乚⿱⺕⺕
+#	{89}	outside of 𪚧 (F5F7 )	⿱⺈⿹⿻口乚⿱彐彐
 #	{90}	core of 龜 [G source glyph] (F5F8 )	⿳冂⿰一一⿺乚丨
 #	{91}	core of 黽 (F5F9 )	⿻冂⿰一⿺乚⺊
 #	{92}	core of 𪚧 (F5FA )	⿻口乚
