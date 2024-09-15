@@ -97,7 +97,7 @@
 #	{27}	bottom of 𤣥 (F2BB )	⿱𠃋𠃋
 #	{28}	outside of 武貮 (F2BC )	⿻弋一
 #	{29}	outside of 幾畿 (F2BD )	⿻弋𢆶
-#	{30}	top of 彔 (F2F5 )	⿻𠃊𠃍
+#	{30}	top of 彔 (F2F5 )	⿻𠃋㇇
 #	{31}	bottom of 卥 (F2BF )	⿴囗⿻𰀪丶
 #	{32}	top of 𣓝 (F5FD )	⿱⿻𠮛⿰丨丨冖
 #	{33}	bottom of 雋 (F2C1 )	⿲丨㇅⿰丨𠃌
