@@ -151,8 +151,8 @@
 #	{81}	inner part of 𮭷 (ECE7 )	⿸厂⿻コ⿰丨丨
 #	{82}	top of 書 (F2E3 )	⿱𦘒一
 #	{83}	top of 帝 (ECE9 )	⿳亠丷冖
-#	{84}	厂 with hooked stroke (ECEA )	⿰丿乛
-#	{85}	广 with hooked stroke (ECEB )	⿰丿⿱丶乛
+#	{84}	厂 with hooked stroke (ECEA )	⿱丿乛
+#	{85}	广 with hooked stroke (ECEB )	⿱丿⿱丶乛
 #	{86}	first three strokes of 灬 (ECEC )	⿲㇒丶丶
 #	{87}	top of 亭 (ECED )	⿳亠口冖
 #	{88}	top of 合 (ECEE )	⿵𠆢一
@@ -185,7 +185,7 @@
 #	{115}	top of 𫭣 (EF35 )	⿻𰀪⺀
 #	{116}	inside top of 鹿慶 (EF36 )	⿻コ⿰丨丨
 #	{117}	inside of 𠣏 [G source glyph] (EF37 )	⿺𠃊⺊
-#	{118}	outside of 𠁅 (ECFF )	⿻⿰丿乛工
+#	{118}	outside of 𠁅 (ECFF )	⿻⿱丿乛工
 #	{119}	right of 𥛈 (F2E5 )	⿻己⿱工工
 #	{120}	right of 𤛒 without 口 (F2CC )	⿻弓⿱コ匚
 #	{121}	top of 𣬋 (F5DF )	⿱⺈罒
