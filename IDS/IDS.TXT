@@ -109,7 +109,7 @@
 #	{39}	left of 卬 (F2C7 )	⿱㇒𠄌
 #	{40}	right of 𩤷 (F2C8 )	⿱一⿰⿱⿱丨一𠃑⿱𠃑⿱一丨
 #	{41}	left of 𠜂 [T-form of 𠕋] (F2C6 )	⿻𦉫𠄠
-#	{42}	top of 录 (F2D4 )	彐
+#	{42}	top of 录 (F2D4 )	⿱⿹𠃍一一
 #	{43}	top of 㚑 (F2A4 )	彐
 #	{44}	top of 孛 (F2C9 )	⿱十冖
 #	{45}	left of 北 [G source glyph] (F5FB )	⿹⿰一丨㇀
