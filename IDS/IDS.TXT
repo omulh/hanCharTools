@@ -179,7 +179,7 @@
 #	{109}	left of 刋 (ECFE )	⿻⿱㇒一丿
 #	{110}	outside of 𭁟 (F29E )	冂
 #	{111}	inside of 𭁟 (EF31 )	⿱一丨
-#	{112}	outside of 𦥓 (EF32 )	⿵⿰⿱丿丨𠃍一
+#	{112}	outside of 𦥓 (EF32 )	⿵⿰⿱㇒丨𠃍一
 #	{113}	bottom of 𠕉 (EF33 )	⿵冂八
 #	{114}	top of 坴 [G source glyph] (EF34 )	⿱土八
 #	{115}	top of 𫭣 (EF35 )	⿻𰀪⺀
