@@ -411,7 +411,7 @@ U+2EDE	⻞	^⿱亽{75}$(GHTJKPV)	*U+2967F(HT)
 U+2EDF	⻟	^⿱亽⿻⿺𠄌𫜹丶$(GHTJKPV)	*U+2EDF=U+98E0(G)
 U+2EE0	⻠	^⿱⺈𠄌$(GHTJKPV)	*U+2EE0=U+9963
 U+2EE1	⻡	^⿱巛𦣻$(GHTJKPV)	*U+2EE1=U+29810
-U+2EE2	⻢	^⿹{52}一$(GHTJKPV)	*U+2EE2=U+9A6C
+U+2EE2	⻢	^⿹⿱𠃍㇉一$(GHTJKPV)	*U+2EE2=U+9A6C
 U+2EE3	⻣	^⿳{108}冖⺝$(GHTJKPV)	*U+2EE3=U+9AA8(GV)
 U+2EE4	⻤	^⿷⿱㇒⿸⿻日丿乚厶$(GHTJKPV)	*U+2EE4=U+9B3C(G)
 U+2EE5	⻥	^⿳⺈田一$(GHTJKPV)	*U+2EE5=U+9C7C
@@ -20032,7 +20032,7 @@ U+9A68	驨	^⿰馬巂$(GHTKP)
 U+9A69	驩	^⿰馬雚$(GHTJKP)
 U+9A6A	驪	^⿰馬麗$(GHTJKP)
 U+9A6B	驫	^⿱馬騳$(GHTJKP)
-U+9A6C	马	^⿹{52}一$(GH)
+U+9A6C	马	^⿹⿱𠃍㇉一$(GH)
 U+9A6D	驭	^⿰马又$(G)
 U+9A6E	驮	^⿰马大$(G)
 U+9A6F	驯	^⿰马川$(G)
