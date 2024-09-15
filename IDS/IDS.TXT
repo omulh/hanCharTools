@@ -73,7 +73,7 @@
 #	{3}	top of 夐 (F2A7 )	⿱⺈⿵冂人
 #	{4}	top of 䝉𫎇 (F313 )	⿱⿻⿰丨丨丷冖
 #	{5}	left of 叚 (F2A9 )	⿸⿰丨コ𠄠
-#	{6}	left of 段 (F2AA )	⿰丨⿳丿二㇀
+#	{6}	left of 段 (F2AA )	⿰丨⿳㇒二㇀
 #	{7}	top of 專惠 (F4F3 )	⿻一⿻虫一
 #	{8}	right of 扥 (F2AB )	⿻⿱㇒一乚
 #	{9}	right of 𪟳𪝪 (F2AC )	⿱⿰㇒㇖丨
@@ -93,7 +93,7 @@
 #	{23}	inside of 與 (F2E9 )	⿹⿺𠃑一丨
 #	{24}	right of 水 (F2F2 )	⿺乀㇒
 #	{25}	bottom (legs) of 喪 (F2F4 )	⿰𠄌⿺乀㇒
-#	{26}	top of 韲 (F2BA )	⿱亠⿲刀丫⿸⿱丿𠄌乀
+#	{26}	top of 韲 (F2BA )	⿱亠⿲刀丫⿸⿱㇒𠄌乀
 #	{27}	bottom of 𤣥 (F2BB )	⿱𠃋𠃋
 #	{28}	outside of 武貮 (F2BC )	⿻弋一
 #	{29}	outside of 幾畿 (F2BD )	⿻弋𢆶
@@ -106,7 +106,7 @@
 #	{36}	top of 𠢘㥑 (F2C4 )	⿳丆⿵冂二冖
 #	{37}	top of 睿 (F2B6 )	⿱⺊冖
 #	{38}	top of 橐 (F2B9 )	⿱𰀉冖
-#	{39}	left of 卬 (F2C7 )	⿱丿𠄌
+#	{39}	left of 卬 (F2C7 )	⿱㇒𠄌
 #	{40}	right of 𩤷 (F2C8 )	⿱一⿰⿱⿱丨一𠃑⿱𠃑⿱一丨
 #	{41}	left of 𠜂 [T-form of 𠕋] (F2C6 )	⿻𦉫𠄠
 #	{42}	top of 录 (F2D4 )	彐
@@ -125,7 +125,7 @@
 #	{55}	outside of 鹿慶 (F2D0 )	⿸广⿻コ⿰丨丨
 #	{56}	top of 無 (F2CF )	⿳𠂉卌一
 #	{57}	outside of 在 (F2CE )	⿱𠂇丨
-#	{58}	top left of 留 (F2CD )	⿰⿱丿𠄌丶
+#	{58}	top left of 留 (F2CD )	⿰⿱㇒𠄌丶
 #	{59}	bottom of 舄 (F13C )	⿹勹灬
 #	{60}	outside of 龜 [H source glyph] (F5F6 )	⿱⺈⿹⿻冂⿰一⿺乚⺊⿱⺕⺕
 #	{61}	outside of 臧 (F5F0 )	⿺⿻⿰⿱𠃊丆厂⿻㇂丿丶
@@ -138,8 +138,8 @@
 #	{68}	top of 黑 (F5F4 )	⿻口土⿻丷
 #	{69}	outside of 戠 (F5F5 )	⿻⿱亠丷戈
 #	{70}	inside of 虛 (F2D1 )	⿱⿲𠃊丨⿺⺊丨一
-#	{71}	left of 𦥑 (F5FE )	⿸⿱丿丨二
-#	{72}	left of 印 [G source glyph] (F5FF )	⿷⿱丿𠄌一
+#	{71}	left of 𦥑 (F5FE )	⿸⿱㇒丨二
+#	{72}	left of 印 [G source glyph] (F5FF )	⿷⿱㇒𠄌一
 #	{73}	top of 具 (ECE0 )	⿴𠀃三
 #	{74}	middle of 鄕 [J source glyph] (ECE1 )	⿱㇒⿸⿺𠄌𫜹二
 #	{75}	bottom left of 爵 [K source glyph] (ECE2 )	⿰丨⿱𫜹二
