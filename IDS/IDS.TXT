@@ -76,11 +76,11 @@
 #	{6}	left of 段 (F2AA )	⿰丨⿳㇒二㇀
 #	{7}	top of 專惠 (F4F3 )	⿻一⿻虫一
 #	{8}	right of 扥 (F2AB )	⿻⿱㇒一乚
-#	{9}	right of 𪟳𪝪 (F2AC )	⿱⿰㇒㇖丨
+#	{9}	right of 𪟳𪝪 (F2AC )	⿱⿰㇒乛丨
 #	{10}	right of 巩 [T source glyph] (F2A8 )	⿻⿻㇈丿丶
 #	{11}	bottom of 軣 (F2AD )	⿰⿱丶㇀⿱㇒丶
 #	{12}	right of 龍 (F2AE )	⿱⿺𠃑一⿺乚亖
-#	{13}	outside of 虍 (F29F )	⿸⿰丿⿱⺊⺂七
+#	{13}	outside of 虍 (F29F )	⿸⿰丿⿱⺊乛七
 #	{14}	top of 𡕡 (F2B0 )	ユ
 #	{15}	bottom-right of 旅 (F2B1 )	⿻𱍸㇒
 #	{16}	bottom of 鼠 (F31A )	⿲⿺𠄌⺀⿺𠄌⺀㇂
