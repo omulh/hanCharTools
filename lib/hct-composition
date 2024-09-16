@@ -26,11 +26,12 @@ Options:
 SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 
 QUIET=false
+USE_WIKTIONARY=false
 
 IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o qh -l "quiet,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o qwh -l "quiet,wiktionary,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -44,6 +45,8 @@ while true; do
     case "$1" in
         -q | --quiet )
             QUIET=true; shift ;;
+        -w | --wiktionary )
+            USE_WIKTIONARY=true; shift ;;
         -h | --help )
             echo "$helpText"; exit 0 ;;
         -- )
@@ -170,7 +173,11 @@ if [[ -e $INPUT ]]; then
     while read testedChar; do
         ((processCount++))
         echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
-        composition=$(get_character_composition_ids "$testedChar")
+        if [[ $USE_WIKTIONARY == true ]]; then
+            composition=$(get_character_composition_wikt "$testedChar")
+        else
+            composition=$(get_character_composition_ids "$testedChar")
+        fi
         exitCode=$?
         if [ $exitCode == 0 ]; then
             if [ -t 1 ]; then
@@ -189,7 +196,11 @@ if [[ -e $INPUT ]]; then
     echo -e "\r\033[0KProcessing done" >&2
 # Otherwise it's a string
 else
-    composition=$(get_character_composition_ids "$INPUT")
+    if [[ $USE_WIKTIONARY == true ]]; then
+        composition=$(get_character_composition_wikt "$testedChar")
+    else
+        composition=$(get_character_composition_ids "$INPUT")
+    fi
     exitCode=$?
     if [[ $exitCode == 0 ]]; then
         echo "$composition"
