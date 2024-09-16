@@ -19,8 +19,10 @@ Output:
     one composition option is available, separate the options with a single tab char.
 
 Options:
-  -q, --quiet    suppress error messages from the stderr stream
-  -h, --help     show this help message and exit"
+  -q, --quiet       suppress error messages from the stderr stream
+  -w, --wiktionary  retrieve the composition information from Wiktionary
+                    instead of the default local IDS database
+  -h, --help        show this help message and exit"
 
 # Get the script's source dir.
 SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
