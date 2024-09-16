@@ -429,6 +429,9 @@ U+2EF0	⻰	^⿸⿺𠂇丶𠤎$(GHTJKPV)	*U+2EF0=U+9F99(GHT)
 U+2EF1	⻱	^⿱㇒⿷⿹⿳冂⿰一一⿺乚丨⿱彐彐⿼コ㐅$(GHTJKPV)	*U+2EF1=U+9F9C(G)
 U+2EF2	⻲	^⿱⺈⿻昌乚$(GHTJKPV)	*U+2EF2=U+4E80
 U+2EF3	⻳	^⿱⺈⿻日乚$(GHTJKPV)	*U+2EF3=U+9F9F
+# Katakana (2 Characters)
+U+30B3	コ	^⿱𠃍一$(GHTJKPV)
+U+30E6	ユ	^⿱𠃍一$(GHTJKPV)
 # CJK Strokes (36 Characters)
 U+31C0	㇀	^㇀$(GHTJKPV)
 U+31C1	㇁	^㇁$(GHTJKPV)
