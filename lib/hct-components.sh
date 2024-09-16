@@ -72,3 +72,11 @@ else
         INPUT="$1"
     fi
 fi
+
+# Deal with an invalid IDS database file
+if [[ ! -e $IDS_FILE ]]; then
+    if [[ $QUIET == false ]]; then
+        echo "htc-$progName: IDS database file not found, aborting" >&2
+    fi
+    exit 3
+fi
