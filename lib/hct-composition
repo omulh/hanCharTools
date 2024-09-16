@@ -22,8 +22,13 @@ Options:
   -q, --quiet    suppress error messages from the stderr stream
   -h, --help     show this help message and exit"
 
+# Get the script's source dir.
+SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
+
 QUIET=false
 VERBOSE=false
+
+IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 
 # Parse the command line arguments
 GIVEN_ARGS=$(getopt -n hct-$progName -o qh -l "quiet,help" -- "$@")
@@ -74,7 +79,7 @@ else
     fi
 fi
 
-function get_character_composition {
+get_character_composition_wikt () {
     local givenChar=$1
 
     # Only accept one character at a time
@@ -110,6 +115,53 @@ function get_character_composition {
     return 0
 }
 
+get_character_composition_ids () {
+    local givenChar=$1
+
+    # Only accept one character at a time
+    [ ${#givenChar} != 1 ] && return 1
+
+    # Check if the given character is present in the IDS database
+    local compositionString
+    compositionString=$(grep -P "\t$givenChar\t" "$IDS_FILE")
+    [[ -z $compositionString ]] && return 11
+
+    # Check if the given character has at least one valid composition option.
+    # Remove the text before the composition options
+    compositionString=$(echo "$compositionString" | sed "s/.*$givenChar\t//")
+    # Remove the notes some entries might have, i.e., the text after a * sign
+    compositionString=$(echo "$compositionString" | sed "s/\t\*.*//")
+    # Remove composition options with subtraction, mirror, rotation
+    # and variation IDCs, i.e., compositions with ㇯⿾⿿〾 in them
+    while [[ -n $(echo "$compositionString" | sed -n "/\t[^\t]*[㇯⿾⿿〾][^\t]*\t/p") ]]; do
+        compositionString=$(echo "$compositionString" | sed "s/\t[^\t]*[㇯⿾⿿〾][^\t]*\t/\t/")
+    done
+    compositionString=$(echo "$compositionString" | sed "s/^[^\t]*[㇯⿾⿿〾][^\t]*\t//")
+    compositionString=$(echo "$compositionString" | sed "s/\t[^\t]*[㇯⿾⿿〾][^\t]*$//")
+    compositionString=$(echo "$compositionString" | sed "s/^[^\t]*[㇯⿾⿿〾][^\t]*$//")
+    # Remove composition options with unrepresentable components, i.e. with ？ in them
+    while [[ -n $(echo "$compositionString" | sed -n "/\t[^\t]*？[^\t]*\t/p") ]]; do
+        compositionString=$(echo "$compositionString" | sed "s/\t[^\t]*？[^\t]*\t/\t/")
+    done
+    compositionString=$(echo "$compositionString" | sed "s/^[^\t]*？[^\t]*\t//")
+    compositionString=$(echo "$compositionString" | sed "s/\t[^\t]*？[^\t]*$//")
+    compositionString=$(echo "$compositionString" | sed "s/^[^\t]*？[^\t]*$//")
+    # Remove composition options with unencoded components, i.e. with {} in them
+    while [[ -n $(echo "$compositionString" | sed -n "/\t[^\t]*[{}][^\t]*\t/p") ]]; do
+        compositionString=$(echo "$compositionString" | sed "s/\t[^\t]*[{}][^\t]*\t/\t/")
+    done
+    compositionString=$(echo "$compositionString" | sed "s/^[^\t]*[{}][^\t]*\t//")
+    compositionString=$(echo "$compositionString" | sed "s/\t[^\t]*[{}][^\t]*$//")
+    compositionString=$(echo "$compositionString" | sed "s/^[^\t]*[{}][^\t]*$//")
+    [[ -z $compositionString ]] && return 12
+
+    # Remove all the ^ and $ characters
+    compositionString=$(echo "$compositionString" | sed 's/[$^]//g')
+
+    echo "$compositionString"
+    return 0
+}
+
 # If input is a file
 if [[ -e $INPUT ]]; then
     lineCount=$(sed -n '$=' "$INPUT")
@@ -117,7 +169,7 @@ if [[ -e $INPUT ]]; then
     while read testedChar; do
         ((processCount++))
         echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
-        composition=$(get_character_composition "$testedChar")
+        composition=$(get_character_composition_ids "$testedChar")
         exitCode=$?
         if [ $exitCode == 0 ]; then
             if [ -t 1 ]; then
@@ -136,7 +188,7 @@ if [[ -e $INPUT ]]; then
     echo -e "\r\033[0KProcessing done" >&2
 # Otherwise it's a string
 else
-    composition=$(get_character_composition "$INPUT")
+    composition=$(get_character_composition_ids "$INPUT")
     exitCode=$?
     if [[ $exitCode == 0 ]]; then
         echo "$composition"
@@ -146,6 +198,10 @@ else
                 echo "The given character does not have a valid Wiktionary entry." >&2 ;;
             3)
                 echo "The Wiktionary entry for the given character does not contain composition information." >&2 ;;
+            11)
+                echo "The given character is not present in the IDS database." >&2 ;;
+            12)
+                echo "The given character does not have a valid composition option." >&2 ;;
         esac
     fi
 fi
