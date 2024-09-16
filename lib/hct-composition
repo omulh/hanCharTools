@@ -110,25 +110,42 @@ function get_character_composition {
     return 0
 }
 
-lineCount=$(sed -n '$=' "$INPUT")
-processCount=0
-while read testedChar; do
-    ((processCount++))
-    echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
-    composition=$(get_character_composition "$testedChar")
+# If input is a file
+if [[ -e $INPUT ]]; then
+    lineCount=$(sed -n '$=' "$INPUT")
+    processCount=0
+    while read testedChar; do
+        ((processCount++))
+        echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
+        composition=$(get_character_composition "$testedChar")
+        exitCode=$?
+        if [ $exitCode == 0 ]; then
+            if [ -t 1 ]; then
+                echo -e "\r\033[0K$testedChar\t$composition"
+            else
+                echo -e "$testedChar\t$composition"
+            fi
+        else
+            if [ -t 1 ]; then
+                echo -e "\r\033[0K$testedChar\t$exitCode"
+            else
+                echo -e "$testedChar\t$exitCode"
+            fi
+        fi
+    done < "$INPUT"
+    echo -e "\r\033[0KProcessing done" >&2
+# Otherwise it's a string
+else
+    composition=$(get_character_composition "$INPUT")
     exitCode=$?
-    if [ $exitCode == 0 ]; then
-        if [ -t 1 ]; then
-            echo -e "\r\033[0K$testedChar\t$composition"
-        else
-            echo -e "$testedChar\t$composition"
-        fi
-    else
-        if [ -t 1 ]; then
-            echo -e "\r\033[0K$testedChar\t$exitCode"
-        else
-            echo -e "$testedChar\t$exitCode"
-        fi
+    if [[ $exitCode == 0 ]]; then
+        echo "$composition"
+    elif [[ $QUIET == false ]]; then
+        case $exitCode in
+            2)
+                echo "The given character does not have a valid Wiktionary entry." >&2 ;;
+            3)
+                echo "The Wiktionary entry for the given character does not contain composition information." >&2 ;;
+        esac
     fi
-done < "$INPUT"
-echo -e "\r\033[0KProcessing done" >&2
+fi
