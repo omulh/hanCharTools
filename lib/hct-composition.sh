@@ -216,4 +216,5 @@ else
                 echo "The Wiktionary entry for the given character does not contain composition information." >&2 ;;
         esac
     fi
+    exit $exitCode
 fi
