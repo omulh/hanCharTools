@@ -80,3 +80,53 @@ if [[ ! -e $IDS_FILE ]]; then
     fi
     exit 3
 fi
+
+get_character_components () {
+    local givenChar=$1
+
+    # Only accept one character at a time
+    if [ ${#givenChar} != 1 ]; then
+        return 1
+    fi
+
+    # Get the composition for the given character
+    local compositionString
+    local errCode
+    compositionString=$($SOURCE_DIR/hct-composition.sh -q $givenChar)
+    errCode=$?
+    if [[ $errCode != 0 ]]; then
+        return $errCode
+    fi
+
+    # Remove any 'ideographic description characters'
+    compositionString=$(echo "$compositionString" | sed 's/[⿰⿱⿲⿳⿴⿵⿶⿷⿸⿹⿺⿼⿽⿻㇯⿾⿿〾]//g')
+    echo "$compositionString" >&2
+
+    # Create an array with the IDS sources, i.e., the region letter codes
+    # between parentheses, for each of the available composition options
+    local compositionSources=()
+    read -a compositionSources <<< "$compositionString"
+    for idx in "${!compositionSources[@]}"; do
+        compositionSources[idx]=$(echo "${compositionSources[$idx]}" | sed 's/.*(//; s/).*//')
+    done
+    echo "${compositionSources[@]}" >&2
+
+    # Create an array with each of the available composition options
+    local compositionOptions=()
+    read -a compositionOptions <<< "$compositionString"
+    for idx in "${!compositionOptions[@]}"; do
+        compositionOptions[idx]=$(echo "${compositionOptions[$idx]}" | sed 's/([^)]*)//')
+    done
+    echo "${compositionOptions[@]}" >&2
+
+    # Check if the given character can't be decomposed any further, i.e.,
+    # if the character is composed of itself according to the IDS database
+    if [[ ${compositionOptions[0]} == "$givenChar" ]]; then
+        echo "$givenChar"
+        return 0
+    fi
+}
+
+components=$(get_character_components "$INPUT")
+echo
+echo "$components"
