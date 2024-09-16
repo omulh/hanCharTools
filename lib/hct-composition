@@ -1,13 +1,78 @@
 #! /bin/sh
 
-if [[ -z $1 ]]; then
-    echo "No file provided." >&2
-    exit 1
-elif [[ ! -f $1 ]]; then
-    echo "The provided file does not exist." >&2
+readonly progName='composition'
+readonly helpHint="Try 'hct $progName --help' for more information."
+readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
+Get the composition options for Chinese characters.
+
+Input:
+  A single input argument is accepted, and it must be one of two types:
+  A single Chinese character.
+  A file containing a list of Chinese characters separated by newlines.
+
+Output:
+  For a sigle character: print the composition for the given character
+    to the stdout stream; if more than one composition option is available,
+    separate the options with a single tab character.
+  For a character list: for each of the listed characters, print the character and its
+    composition separated by a single tab character to the stdout stream; if more than
+    one composition option is available, separate the options with a single tab char.
+
+Options:
+  -q, --quiet    suppress error messages from the stderr stream
+  -h, --help     show this help message and exit"
+
+QUIET=false
+VERBOSE=false
+
+# Parse the command line arguments
+GIVEN_ARGS=$(getopt -n hct-$progName -o qh -l "quiet,help" -- "$@")
+
+# Deal with invalid command line arguments
+if [ $? != 0 ]; then
+    echo "$helpHint"
     exit 1
 fi
-INPUT="$1"
+eval set -- "$GIVEN_ARGS"
+
+# Process the command line arguments
+while true; do
+    case "$1" in
+        -q | --quiet )
+            QUIET=true; shift ;;
+        -h | --help )
+            echo "$helpText"; exit 0 ;;
+        -- )
+            shift; break ;;
+        * )
+            break ;;
+    esac
+done
+
+# Process the positional arguments
+if [[ -z $1 ]]; then
+    if [[ $QUIET == false ]]; then
+        echo "htc-$progName: no input character or file provided." >&2
+        echo "$helpHint" >&2
+    fi
+    exit 2
+elif [[ -n $2 ]]; then
+    if [[ $QUIET == false ]]; then
+        echo "htc-$progName: only one character or file can be provided." >&2
+        echo "$helpHint" >&2
+    fi
+    exit 2
+else
+    if [[ ! -e $1 && ${#1} != 1 ]]; then
+        if [[ $QUIET == false ]]; then
+            echo "htc-$progName: input file does not exist." >&2
+            echo "$helpHint" >&2
+        fi
+        exit 2
+    else
+        INPUT="$1"
+    fi
+fi
 
 function get_character_composition {
     local givenChar=$1
