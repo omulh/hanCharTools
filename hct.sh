@@ -19,7 +19,7 @@ if [[ -z $1 || $1 == -h || $1 == --help ]]; then
     echo "$helpText"
     exit 0
 else
-    if [[ $1 == composition ]]; then
+    if [[ $1 == composition || $1 == components ]]; then
         exec $SOURCE_DIR/lib/hct-$1 "${@:2}"
     else
         echo "$progName: invalid command '$1'" >&2
