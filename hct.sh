@@ -22,8 +22,8 @@ else
     if [[ $1 == composition ]]; then
         exec $SOURCE_DIR/lib/hct-$1 "${@:2}"
     else
-        echo "$progName: invalid option '$1'"
-        echo "Try '$scriptName --help' for more information."
+        echo "$progName: invalid command '$1'" >&2
+        echo "Try '$progName --help' for more information." >&2
         exit 1
     fi
 fi
