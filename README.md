@@ -16,7 +16,7 @@ Clone this repo with git:
 `$ git clone https://github.com/omulh/HanCharTools.git`  
 
 If needed, make a symlink of the main wrapper script to a dir. which is part of PATH, for instance:  
-`# ln -s ~/HanCharTools/hct.sh /bin/hct`  
+`# ln -s ~/HanCharTools/hct /bin/hct`  
 
 ### Requirements
 

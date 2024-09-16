@@ -20,7 +20,7 @@ if [[ -z $1 || $1 == -h || $1 == --help ]]; then
     exit 0
 else
     if [[ $1 == composition || $1 == components ]]; then
-        exec $SOURCE_DIR/lib/hct-$1 "${@:2}"
+        exec $SOURCE_DIR/lib/hct-$1.sh "${@:2}"
     else
         echo "$progName: invalid command '$1'" >&2
         echo "Try '$progName --help' for more information." >&2
