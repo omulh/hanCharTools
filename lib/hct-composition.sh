@@ -85,7 +85,7 @@ get_character_composition_wikt () {
     local givenChar=$1
 
     # Only accept one character at a time
-    [ ${#givenChar} != 1 ] && return 1
+    [ ${#givenChar} != 1 ] && return 10
 
     # Curl the wiktionary page for the given character
     local url="https://en.wiktionary.org/wiki/$givenChar"
@@ -97,13 +97,13 @@ get_character_composition_wikt () {
     local hanCharacterHeadword
     hanCharacterHeadword=$(echo "$html" | grep -m 1 -A 15 '<div class="mw-heading mw-heading3"><h3 id="Han_character">Han character</h3>')
     hanCharacterHeadword=$(echo "$hanCharacterHeadword" | grep '<span class="headword-line"><strong class="Hani headword" lang="mul">')
-    [[ -z $hanCharacterHeadword ]] && return 2
+    [[ -z $hanCharacterHeadword ]] && return 21
 
     # Check if there is composition information present
     local compositionString
     compositionString=$(echo "$hanCharacterHeadword" | grep 'composition')
     compositionString=$(echo "$compositionString" | sed 's/.*composition//')
-    [[ -z $compositionString ]] && return 3
+    [[ -z $compositionString ]] && return 22
 
     # Extract the composition string for the character
     # Remove the html tags
@@ -123,7 +123,7 @@ get_character_composition_ids () {
     local givenChar=$1
 
     # Only accept one character at a time
-    [ ${#givenChar} != 1 ] && return 1
+    [ ${#givenChar} != 1 ] && return 10
 
     # Check if the given character is present in the IDS database
     local compositionString
@@ -206,14 +206,14 @@ else
         echo "$composition"
     elif [[ $QUIET == false ]]; then
         case $exitCode in
-            2)
-                echo "The given character does not have a valid Wiktionary entry." >&2 ;;
-            3)
-                echo "The Wiktionary entry for the given character does not contain composition information." >&2 ;;
             11)
                 echo "The given character is not present in the IDS database." >&2 ;;
             12)
                 echo "The given character does not have a valid composition option." >&2 ;;
+            21)
+                echo "The given character does not have a valid Wiktionary entry." >&2 ;;
+            22)
+                echo "The Wiktionary entry for the given character does not contain composition information." >&2 ;;
         esac
     fi
 fi
