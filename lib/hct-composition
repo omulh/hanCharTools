@@ -7,8 +7,8 @@ Get the composition options for Chinese characters.
 
 Input:
   A single input argument is accepted, and it must be one of two types:
-  A single Chinese character.
-  A file containing a list of Chinese characters separated by newlines.
+  A single character or a file containing a list of single characters separated by newlines.
+  If the input argument is longer than one character, it is assumed to be a file.
 
 Output:
   For a sigle character: print the composition for the given character
