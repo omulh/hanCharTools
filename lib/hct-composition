@@ -109,6 +109,8 @@ get_character_composition_wikt () {
     compositionString=$(echo "$compositionString" | sed 's/^ //')
     # Remove the last solitary parenthesis
     compositionString=$(echo "$compositionString" | sed 's/)$//')
+    # Separate the different composition options by a tab character
+    compositionString=$(echo "$compositionString" | sed "s/ or /\t/g")
 
     echo "$compositionString"
     return 0
