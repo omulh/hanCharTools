@@ -194,7 +194,7 @@ if [[ -e $INPUT ]]; then
         fi
     done < "$INPUT"
     echo -e "\r\033[0KProcessing done" >&2
-# Otherwise it's a string
+# Otherwise it's a single character
 else
     if [[ $USE_WIKTIONARY == true ]]; then
         composition=$(get_character_composition_wikt "$testedChar")
