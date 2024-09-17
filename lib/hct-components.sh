@@ -99,6 +99,16 @@ fi
 
 get_character_components () {
     local givenChar=$1
+    local nestLevel=1
+
+    # Give the initial verbose feedback
+    if [[ -z $2 ]]; then
+        if [[ $VERBOSE == true ]]; then
+            echo "$givenChar <- working on it" >&2
+        fi
+    else
+        nestLevel=$2
+    fi
 
     # Only accept one character at a time
     if [ ${#givenChar} != 1 ]; then
@@ -139,6 +149,10 @@ get_character_components () {
     # Check if the given character can't be decomposed any further, i.e.,
     # if the character is composed of itself according to the IDS database
     if [[ ${compositionOptions[0]} == "$givenChar" ]]; then
+        if [[ $VERBOSE == true ]]; then
+            for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
+            echo "$givenChar <- component found (from IDS database)" >&2
+        fi
         echo "$givenChar"
         return 0
     fi
@@ -147,6 +161,15 @@ get_character_components () {
     local validSourceOptions=()
     # Iterate over every composition option for the given character
     for idx in "${!compositionOptions[@]}"; do
+        if [[ $VERBOSE == true ]]; then
+            local extra
+            if [[ ${#compositionOptions[@]} -gt 1 ]]; then
+                extra=" (opt. $((idx+1)))"
+            fi
+            for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
+            echo "$givenChar <- composition = ${compositionOptions[$idx]}$extra" >&2
+        fi
+
         local subComponents=''
         local validComponents=''
         # Iterate over every 'child' character in a composition option
@@ -179,6 +202,11 @@ get_character_components () {
 
     # Chose the first valid components option
     chosenComponentsOption="${validComponentsOptions[0]}"
+    if [[ $VERBOSE == true ]]; then
+        for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
+        echo "$chosenComponentsOption <- chosen components option" >&2
+    fi
+
     echo "$chosenComponentsOption"
     return 0
 }
