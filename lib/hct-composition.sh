@@ -130,39 +130,26 @@ get_character_composition_ids () {
     compositionString=$(grep -P "\t$givenChar\t" "$IDS_FILE")
     [[ -z $compositionString ]] && return 11
 
-    # Check if the given character has at least one valid composition option.
     # Remove the text before the composition options
     compositionString=$(echo "$compositionString" | sed "s/.*$givenChar\t//")
     # Remove the notes some entries might have, i.e., the text after a * sign
     compositionString=$(echo "$compositionString" | sed "s/\t\*.*//")
-    # Remove composition options with subtraction, mirror, rotation
-    # and variation IDCs, i.e., compositions with ㇯⿾⿿〾 in them
-    while [[ -n $(echo "$compositionString" | sed -n "/\t[^\t]*[㇯⿾⿿〾][^\t]*\t/p") ]]; do
-        compositionString=$(echo "$compositionString" | sed "s/\t[^\t]*[㇯⿾⿿〾][^\t]*\t/\t/")
-    done
-    compositionString=$(echo "$compositionString" | sed "s/^[^\t]*[㇯⿾⿿〾][^\t]*\t//")
-    compositionString=$(echo "$compositionString" | sed "s/\t[^\t]*[㇯⿾⿿〾][^\t]*$//")
-    compositionString=$(echo "$compositionString" | sed "s/^[^\t]*[㇯⿾⿿〾][^\t]*$//")
-    # Remove composition options with unrepresentable components, i.e. with ？ in them
-    while [[ -n $(echo "$compositionString" | sed -n "/\t[^\t]*？[^\t]*\t/p") ]]; do
-        compositionString=$(echo "$compositionString" | sed "s/\t[^\t]*？[^\t]*\t/\t/")
-    done
-    compositionString=$(echo "$compositionString" | sed "s/^[^\t]*？[^\t]*\t//")
-    compositionString=$(echo "$compositionString" | sed "s/\t[^\t]*？[^\t]*$//")
-    compositionString=$(echo "$compositionString" | sed "s/^[^\t]*？[^\t]*$//")
-    # Remove composition options with unencoded components, i.e. with {} in them
-    while [[ -n $(echo "$compositionString" | sed -n "/\t[^\t]*[{}][^\t]*\t/p") ]]; do
-        compositionString=$(echo "$compositionString" | sed "s/\t[^\t]*[{}][^\t]*\t/\t/")
-    done
-    compositionString=$(echo "$compositionString" | sed "s/^[^\t]*[{}][^\t]*\t//")
-    compositionString=$(echo "$compositionString" | sed "s/\t[^\t]*[{}][^\t]*$//")
-    compositionString=$(echo "$compositionString" | sed "s/^[^\t]*[{}][^\t]*$//")
-    [[ -z $compositionString ]] && return 12
-
     # Remove all the ^ and $ characters
     compositionString=$(echo "$compositionString" | sed 's/[$^]//g')
+    # Create an array with each of the available composition options
+    local compositionOptions=()
+    read -a compositionOptions <<< "$compositionString"
+    # Remove composition options with unrepresentable components, unencoded components, or not
+    # wished IDCs, i.e. composition options that have any of the follow characters: ？{}〾㇯⿾⿿
+    for idx in "${!compositionOptions[@]}"; do
+        if [[ -n $(echo "${compositionOptions[idx]}" | sed -n '/[？{}〾㇯⿾⿿]/p') ]]; then
+            unset "compositionOptions[$idx]"
+        fi
+    done
+    # Check if the given character still has at least one valid composition option
+    [[ -z ${compositionOptions[@]} ]] && return 12
 
-    echo "$compositionString"
+    echo "${compositionOptions[@]}"
     return 0
 }
 
