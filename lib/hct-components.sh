@@ -177,6 +177,7 @@ get_character_components () {
     # Chose the first valid components option
     chosenComponentsOption="${validComponentsOptions[0]}"
     echo "$chosenComponentsOption"
+    return 0
 }
 
 components=$(get_character_components "$INPUT")
