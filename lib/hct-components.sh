@@ -17,6 +17,7 @@ Output:
 
 Options:
   -q, --quiet       suppress error messages from the stderr stream
+  -v, --verbose     print verbose messages to the stderr stream
   -h, --help        show this help message and exit"
 
 SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
