@@ -139,6 +139,44 @@ get_character_components () {
         echo "$givenChar"
         return 0
     fi
+
+    local validComponentsOptions=()
+    local validSourceOptions=()
+    # Iterate over every composition option for the given character
+    for idx in "${!compositionOptions[@]}"; do
+        local subComponents=''
+        local validComponents=''
+        # Iterate over every 'child' character in a composition option
+        while read -n1 testedChar; do
+            # Use recursion to get all the basic components
+            subComponents=$(get_character_components "$testedChar" $((++nestLevel)))
+            local exitCode=$?
+
+            # If the 'child' character was successfully decomposed, add its
+            # components to the list of the 'parent' character's components
+            if [[ $exitCode == 0 ]]; then
+                validComponents+="$subComponents"
+            else
+                break
+            fi
+        done < <(echo -n "${compositionOptions[$idx]}")
+
+        # If a composition option was successfully decomposed, add
+        # its components to the list of valid components options
+        if [[ $exitCode == 0 ]]; then
+            validComponentsOptions+=("$validComponents")
+            validSourceOptions+=("${compositionSources[$idx]}")
+        fi
+    done
+
+    # If no valid components option was found
+    if [[ -z ${validComponentsOptions[*]} ]]; then
+        return 30
+    fi
+
+    # Chose the first valid components option
+    chosenComponentsOption="${validComponentsOptions[0]}"
+    echo "$chosenComponentsOption"
 }
 
 components=$(get_character_components "$INPUT")
