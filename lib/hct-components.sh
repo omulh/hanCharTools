@@ -116,7 +116,7 @@ get_character_components () {
         return 1
     fi
 
-    # Get the composition for the given character
+    # Get the composition(s) for the given character
     local compositionString
     local errCode
     if [[ -z $SOURCE_LETTERS ]]; then
