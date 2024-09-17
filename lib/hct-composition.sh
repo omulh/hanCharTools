@@ -20,9 +20,30 @@ Output:
 
 Options:
   -q, --quiet       suppress error messages from the stderr stream
+  -s, --source={GHMTJKPVUSBXYZ}
+                    a string containing the desired source region letter(s) must be provided;
+                    when used, filter out composition options that do not contain the
+                    specified source letter(s); see below to see the source options
   -w, --wiktionary  retrieve the composition information from Wiktionary
                     instead of the default local IDS database
-  -h, --help        show this help message and exit"
+  -h, --help        show this help message and exit
+
+  The differen letters and the corresponding regions to be
+  chosen from for the 'source' option are the following:
+  G -> China
+  H -> Hong Kong SAR
+  M -> Macau SAR
+  T -> TCA/Taiwan
+  J -> Japan
+  K -> ROKorea
+  P -> DPRKorea
+  V -> Vietnam
+  U -> Unicode
+  S -> SAT
+  B -> UK
+  X -> Alternative IDS for same glyph structure
+  Y -> UCS2003 glyphs
+  Z -> Unifiable or plausible alternative form of the glyph"
 
 SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
