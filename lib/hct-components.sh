@@ -105,7 +105,11 @@ get_character_components () {
     # Get the composition for the given character
     local compositionString
     local errCode
-    compositionString=$($SOURCE_DIR/hct-composition.sh -q $givenChar)
+    if [[ -z $SOURCE_LETTERS ]]; then
+        compositionString=$($SOURCE_DIR/hct-composition.sh -q $givenChar)
+    else
+        compositionString=$($SOURCE_DIR/hct-composition.sh -q -s $SOURCE_LETTERS $givenChar)
+    fi
     errCode=$?
     if [[ $errCode != 0 ]]; then
         return $errCode
