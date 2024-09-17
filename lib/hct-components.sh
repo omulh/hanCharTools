@@ -126,6 +126,16 @@ get_character_components () {
     fi
     errCode=$?
     if [[ $errCode != 0 ]]; then
+        if [[ $VERBOSE == true ]]; then
+            for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
+            if [[ $errCode == 11 ]]; then
+                echo "$givenChar <- aborting, character is not present in the IDS database" >&2
+            elif [[ $errCode == 12 ]]; then
+                echo "$givenChar <- aborting, character has no valid composition options" >&2
+            elif [[ $errCode == 13 ]]; then
+                echo "$givenChar <- aborting, character has no composition options with the selected source" >&2
+            fi
+        fi
         return $errCode
     fi
 
@@ -198,6 +208,10 @@ get_character_components () {
 
     # If no valid components option was found
     if [[ -z ${validComponentsOptions[*]} ]]; then
+        if [[ $VERBOSE == true ]]; then
+            for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
+            echo "$givenChar <- no valid components option found" >&2
+        fi
         return 30
     fi
 
