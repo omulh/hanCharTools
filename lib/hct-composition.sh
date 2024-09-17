@@ -162,6 +162,18 @@ get_character_composition_ids () {
     # Check if the given character still has at least one valid composition option
     [[ -z ${compositionOptions[@]} ]] && return 12
 
+    # If a source region was specified, filter out composition
+    # options that do not have the letter of that source
+    if [[ -n $SOURCE_LETTERS ]]; then
+        for idx in "${!compositionOptions[@]}"; do
+            if [[ -z $(echo "${compositionOptions[idx]}" | sed -n "/[$SOURCE_LETTERS]/p") ]]; then
+                unset "compositionOptions[$idx]"
+            fi
+        done
+    fi
+    # Check if the given character still has at least one valid composition option
+    [[ -z ${compositionOptions[@]} ]] && return 13
+
     echo "${compositionOptions[@]}"
     return 0
 }
@@ -210,6 +222,8 @@ else
                 echo "The given character is not present in the IDS database." >&2 ;;
             12)
                 echo "The given character does not have a valid composition option." >&2 ;;
+            13)
+                echo "The given character does not have composition options for the selected source." >&2 ;;
             21)
                 echo "The given character does not have a valid Wiktionary entry." >&2 ;;
             22)
