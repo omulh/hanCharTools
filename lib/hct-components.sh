@@ -177,6 +177,9 @@ get_character_components () {
             if [[ ${#compositionOptions[@]} -gt 1 ]]; then
                 extra=" (opt. $((idx+1)))"
             fi
+            if [[ -n $SOURCE_LETTERS ]]; then
+                extra+="[${compositionSources[$idx]}]"
+            fi
             for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
             echo "$givenChar <- composition = ${compositionOptions[$idx]}$extra" >&2
         fi
