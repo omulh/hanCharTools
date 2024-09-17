@@ -23,9 +23,10 @@ SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 
 QUIET=false
+VERBOSE=false
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o qs:h -l "quiet,source:,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o qs:vh -l "quiet,source:,verbose,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -41,6 +42,8 @@ while true; do
             QUIET=true; shift ;;
         -s | --source )
             SOURCE_LETTERS="$2"; shift 2 ;;
+        -v | --verbose )
+            VERBOSE=true; shift ;;
         -h | --help )
             echo "$helpText"; exit 0 ;;
         -- )
