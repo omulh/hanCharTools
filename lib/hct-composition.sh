@@ -31,7 +31,7 @@ QUIET=false
 USE_WIKTIONARY=false
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o qwh -l "quiet,wiktionary,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o qs:wh -l "quiet,source:,wiktionary,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -45,6 +45,8 @@ while true; do
     case "$1" in
         -q | --quiet )
             QUIET=true; shift ;;
+        -s | --source )
+            SOURCE_LETTERS="$2"; shift 2 ;;
         -w | --wiktionary )
             USE_WIKTIONARY=true; shift ;;
         -h | --help )
@@ -55,6 +57,17 @@ while true; do
             break ;;
     esac
 done
+
+# Process the source option letters
+if [[ -n SOURCE_LETTERS ]]; then
+    if [[ -n $(echo $SOURCE_LETTERS | sed 's/[GHMTJKPVUSBXYZ]//g') ]]; then
+        if [[ $QUIET == false ]]; then
+            echo "htc-$progName: invalid argument for the option 's|source'" >&2
+            echo "$helpHint" >&2
+        fi
+        exit 2
+    fi
+fi
 
 # Process the positional arguments
 if [[ -z $1 ]]; then
