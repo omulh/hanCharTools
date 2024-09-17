@@ -117,7 +117,6 @@ get_character_components () {
 
     # Remove any 'ideographic description characters'
     compositionString=$(echo "$compositionString" | sed 's/[⿰⿱⿲⿳⿴⿵⿶⿷⿸⿹⿺⿼⿽⿻㇯⿾⿿〾]//g')
-    echo "$compositionString" >&2
 
     # Create an array with the IDS sources, i.e., the region letter codes
     # between parentheses, for each of the available composition options
@@ -126,7 +125,6 @@ get_character_components () {
     for idx in "${!compositionSources[@]}"; do
         compositionSources[idx]=$(echo "${compositionSources[$idx]}" | sed 's/.*(//; s/).*//')
     done
-    echo "${compositionSources[@]}" >&2
 
     # Create an array with each of the available composition options
     local compositionOptions=()
@@ -134,7 +132,6 @@ get_character_components () {
     for idx in "${!compositionOptions[@]}"; do
         compositionOptions[idx]=$(echo "${compositionOptions[$idx]}" | sed 's/([^)]*)//')
     done
-    echo "${compositionOptions[@]}" >&2
 
     # Check if the given character can't be decomposed any further, i.e.,
     # if the character is composed of itself according to the IDS database
@@ -145,5 +142,4 @@ get_character_components () {
 }
 
 components=$(get_character_components "$INPUT")
-echo
 echo "$components"
