@@ -80,7 +80,7 @@ while true; do
 done
 
 # Process the source option letters
-if [[ -n SOURCE_LETTERS ]]; then
+if [[ -n $SOURCE_LETTERS ]]; then
     if [[ -n $(echo $SOURCE_LETTERS | sed 's/[GHMTJKPVUSBXYZ]//g') ]]; then
         if [[ $QUIET == false ]]; then
             echo "htc-$progName: invalid argument for the option 's|source'" >&2
@@ -230,7 +230,7 @@ if [[ -e $INPUT ]]; then
 # Otherwise it's a single character
 else
     if [[ $USE_WIKTIONARY == true ]]; then
-        composition=$(get_character_composition_wikt "$testedChar")
+        composition=$(get_character_composition_wikt "$INPUT")
     else
         composition=$(get_character_composition_ids "$INPUT")
     fi
