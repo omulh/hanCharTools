@@ -246,13 +246,13 @@ else
             11)
                 echo "The given character is not present in the IDS database." >&2 ;;
             12)
-                echo "The given character does not have a valid composition option." >&2 ;;
+                echo "The given character has no valid composition options." >&2 ;;
             13)
-                echo "The given character does not have composition options for the selected source." >&2 ;;
+                echo "The given character has no composition options for the selected source(s)." >&2 ;;
             21)
                 echo "The given character does not have a valid Wiktionary entry." >&2 ;;
             22)
-                echo "The Wiktionary entry for the given character does not contain composition information." >&2 ;;
+                echo "The Wiktionary entry for the given character has no composition information." >&2 ;;
         esac
     fi
     exit $exitCode
