@@ -33,7 +33,7 @@ QUIET=false
 VERBOSE=false
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o qs:vh -l "quiet,source:,verbose,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o qs:t:vh -l "quiet,source:,tiebreaker:,verbose,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -49,6 +49,8 @@ while true; do
             QUIET=true; shift ;;
         -s | --source )
             SOURCE_LETTERS="$2"; shift 2 ;;
+        -t | --tiebreaker )
+            TIEBREAKER_RULE="$2"; shift 2 ;;
         -v | --verbose )
             VERBOSE=true; shift ;;
         -h | --help )
@@ -94,6 +96,23 @@ else
         exit 2
     else
         INPUT="$1"
+    fi
+fi
+
+# Process the tiebreaker option letters
+if [[ -n $TIEBREAKER_RULE ]]; then
+    if [[ ${#TIEBREAKER_RULE} -gt 1 ]]; then
+        if [[ $QUIET == false ]]; then
+            echo "htc-$progName: only one argument may be given for the option 't|tiebreaker'" >&2
+            echo "$helpHint" >&2
+        fi
+        exit 2
+    elif [[ -n $(echo $TIEBREAKER_RULE | sed 's/[ln]//g') ]]; then
+        if [[ $QUIET == false ]]; then
+            echo "htc-$progName: invalid argument for the option 't|tiebreaker'" >&2
+            echo "$helpHint" >&2
+        fi
+        exit 2
     fi
 fi
 
