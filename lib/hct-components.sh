@@ -42,7 +42,7 @@ TIEBREAKER_RULE='f'
 VERBOSE=false
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o qs:t:vh -l "quiet,source:,tiebreaker:,verbose,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o c:qs:t:vh -l "components:,quiet,source:,tiebreaker:,verbose,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -54,6 +54,8 @@ eval set -- "$GIVEN_ARGS"
 # Process the command line arguments
 while true; do
     case "$1" in
+        -c | --components )
+            COMPONENTS_FILE="$2"; shift 2 ;;
         -q | --quiet )
             QUIET=true; shift ;;
         -s | --source )
@@ -70,6 +72,15 @@ while true; do
             break ;;
     esac
 done
+
+# Process the components option file
+if [[ -n $COMPONENTS_FILE && ! -e $COMPONENTS_FILE ]]; then
+    if [[ $QUIET == false ]]; then
+        echo "htc-$progName: invalid argument for the option 'c|components'" >&2
+        echo "$helpHint" >&2
+    fi
+    exit 2
+fi
 
 # Process the source option letters
 if [[ -n $SOURCE_LETTERS ]]; then
@@ -151,6 +162,19 @@ get_character_components () {
             echo "$givenChar <- aborting, string has more than one character" >&2
         fi
         return 1
+    fi
+
+    # If using a dedicated components file, check if the given character
+    # is not a component already according to the components file
+    if [[ -n $COMPONENTS_FILE ]]; then
+        if grep -q "$givenChar" "$COMPONENTS_FILE"; then
+            if [[ $VERBOSE == true ]]; then
+                for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
+                echo "$givenChar <- component found (from components file)" >&2
+            fi
+            echo "$givenChar"
+            return 0
+        fi
     fi
 
     # Get the composition(s) for the given character
