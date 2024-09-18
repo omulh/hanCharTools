@@ -16,6 +16,12 @@ Output:
     its basic components separated by a single tab character to the stdout stream.
 
 Options:
+  -c, --components=FILE
+                    an existing file must be provided; when used, the characters in the file
+                    are to be considered as basic components, in addition to the IDS
+                    database components (single stroke characters); the provided file
+                    should consist of a list of single characters separated by newlines
+
   -q, --quiet       suppress error messages from the stderr stream
   -s, --source={GHMTJKPVUSBXYZ}
                     a string containing the desired source region letter(s) must be provided;
