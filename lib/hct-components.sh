@@ -62,13 +62,14 @@ done
 
 # Process the source option letters
 if [[ -n $SOURCE_LETTERS ]]; then
-    if [[ -n $(echo $SOURCE_LETTERS | sed 's/[GHMTJKPVUSBXYZ]//g') ]]; then
+    if [[ -n $(echo $SOURCE_LETTERS | sed 's/[GHMTJKPVUSBXYZ]//gI') ]]; then
         if [[ $QUIET == false ]]; then
             echo "htc-$progName: invalid argument for the option 's|source'" >&2
             echo "$helpHint" >&2
         fi
         exit 2
     fi
+    SOURCE_LETTERS=$(echo "$SOURCE_LETTERS" | tr '[:lower:]' '[:upper:]')
 fi
 
 # Process the positional arguments
