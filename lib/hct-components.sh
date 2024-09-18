@@ -17,6 +17,12 @@ Output:
 
 Options:
   -q, --quiet       suppress error messages from the stderr stream
+  -s, --source={GHMTJKPVUSBXYZ}
+                    a string containing the desired source region letter(s) must be provided;
+                    this option is directly passed to the 'composition' hct command,
+                    which is used to get the composition of a given character; refer
+                    to that command's help text for more information on this option
+
   -v, --verbose     print verbose messages to the stderr stream
   -h, --help        show this help message and exit"
 

@@ -25,8 +25,10 @@ Options:
                     when used, filter out composition options that do not contain the
                     specified source letter(s); see below to see the source options;
                     this option is ignored when using the 'wiktionary' option
+
   -w, --wiktionary  retrieve the composition information from Wiktionary
                     instead of the default local IDS database
+
   -h, --help        show this help message and exit
 
   The differen letters and the corresponding regions to be
