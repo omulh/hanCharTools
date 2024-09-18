@@ -200,7 +200,7 @@ get_character_components () {
             elif [[ $errCode == 12 ]]; then
                 echo "$givenChar <- aborting, character has no valid composition options" >&2
             elif [[ $errCode == 13 ]]; then
-                echo "$givenChar <- aborting, character has no composition options with the selected source" >&2
+                echo "$givenChar <- aborting, character has no composition options for the selected source(s)" >&2
             fi
         fi
         return $errCode
