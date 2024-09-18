@@ -120,6 +120,10 @@ get_character_components () {
 
     # Only accept one character at a time
     if [ ${#givenChar} != 1 ]; then
+        if [[ $VERBOSE == true ]]; then
+            for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
+            echo "$givenChar <- aborting, string has more than one character" >&2
+        fi
         return 1
     fi
 
