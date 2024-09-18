@@ -23,6 +23,14 @@ Options:
                     which is used to get the composition of a given character; refer
                     to that command's help text for more information on this option
 
+  -t, --tiebreaker={fl}
+                    a single character must be provided, out of f or l;
+                    if used, this defines how a character decomposition
+                    is chosen when there is more than one valid option;
+                    f -> first, always use the first available option
+                    l -> length, use the shortest available option
+                    the default value for this option is 'f'
+
   -v, --verbose     print verbose messages to the stderr stream
   -h, --help        show this help message and exit"
 
