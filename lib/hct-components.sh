@@ -306,5 +306,47 @@ get_character_components () {
     return 0
 }
 
-components=$(get_character_components "$INPUT")
-echo "$components"
+# If input is a file
+if [[ -e $INPUT ]]; then
+    lineCount=$(sed -n '$=' "$INPUT")
+    processCount=0
+    while read testedChar; do
+        ((processCount++))
+        echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
+        components=$(get_character_components "$testedChar")
+        exitCode=$?
+        if [ $exitCode == 0 ]; then
+            if [ -t 1 ]; then
+                echo -e "\r\033[0K$testedChar\t$components"
+            else
+                echo -e "$testedChar\t$components"
+            fi
+        else
+            if [ -t 1 ]; then
+                echo -e "\r\033[0K$testedChar\t$exitCode"
+            else
+                echo -e "$testedChar\t$exitCode"
+            fi
+        fi
+    done < "$INPUT"
+    echo -e "\r\033[0KProcessing done" >&2
+# Otherwise it's a single character
+else
+    components=$(get_character_components "$INPUT")
+    exitCode=$?
+    if [[ $exitCode == 0 ]]; then
+        echo "$components"
+    elif [[ $QUIET == false ]]; then
+        case $exitCode in
+            11)
+                echo "The given character is not present in the IDS database." >&2 ;;
+            12)
+                echo "The given character has no valid composition options." >&2 ;;
+            13)
+                echo "The given character has no composition options for the selected source(s)." >&2 ;;
+            30)
+                echo "The given character has no valid decomposition for the selected source(s)." >&2 ;;
+        esac
+    fi
+    exit $exitCode
+fi
