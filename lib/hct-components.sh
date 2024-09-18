@@ -266,10 +266,6 @@ get_character_components () {
 
     # If no valid components option was found
     if [[ -z ${validComponentsOptions[*]} ]]; then
-        if [[ $VERBOSE == true ]]; then
-            for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
-            echo "$givenChar <- no valid components option found" >&2
-        fi
         return 30
     fi
 
@@ -283,7 +279,7 @@ get_character_components () {
             chosenComponentsOption="${validComponentsOptions[0]}"
             if [[ $VERBOSE == true ]]; then
                 for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
-                echo "$chosenComponentsOption <- chosen option (by 'first' tiebreaker rule)" >&2
+                echo "$givenChar <- decomposition = $chosenComponentsOption (chosen by 'first' tiebreaker rule)" >&2
             fi
         # Otherwise, tiebreaker rule is set to 'l',
         # chose the shortest components option
@@ -297,7 +293,7 @@ get_character_components () {
             chosenComponentsOption="$shortestComponentsOption"
             if [[ $VERBOSE == true ]]; then
                 for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
-                echo "$chosenComponentsOption <- chosen option (by 'length' tiebreaker rule)" >&2
+                echo "$givenChar <- decomposition = $chosenComponentsOption (chosen by 'length' tiebreaker rule)" >&2
             fi
         fi
    fi
