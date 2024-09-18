@@ -150,27 +150,13 @@ get_character_components () {
         return $errCode
     fi
 
-    # Remove any 'ideographic description characters'
-    compositionString=$(echo "$compositionString" | sed 's/[⿰⿱⿲⿳⿴⿵⿶⿷⿸⿹⿺⿼⿽⿻㇯⿾⿿〾]//g')
-
-    # Create an array with the IDS sources, i.e., the region letter codes
-    # between parentheses, for each of the available composition options
-    local compositionSources=()
-    read -a compositionSources <<< "$compositionString"
-    for idx in "${!compositionSources[@]}"; do
-        compositionSources[idx]=$(echo "${compositionSources[$idx]}" | sed 's/.*(//; s/).*//')
-    done
-
     # Create an array with each of the available composition options
     local compositionOptions=()
     read -a compositionOptions <<< "$compositionString"
-    for idx in "${!compositionOptions[@]}"; do
-        compositionOptions[idx]=$(echo "${compositionOptions[$idx]}" | sed 's/([^)]*)//')
-    done
 
     # Check if the given character can't be decomposed any further, i.e.,
     # if the character is composed of itself according to the IDS database
-    if [[ ${compositionOptions[0]} == "$givenChar" ]]; then
+    if [[ $(echo "${compositionOptions[0]}" | sed 's/(.*)//') == "$givenChar" ]]; then
         if [[ $VERBOSE == true ]]; then
             for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
             echo "$givenChar <- component found (from IDS database)" >&2
@@ -188,12 +174,14 @@ get_character_components () {
             if [[ ${#compositionOptions[@]} -gt 1 ]]; then
                 extra=" (opt. $((idx+1)))"
             fi
-            if [[ -n $SOURCE_LETTERS ]]; then
-                extra+="[${compositionSources[$idx]}]"
-            fi
             for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
             echo "$givenChar <- composition = ${compositionOptions[$idx]}$extra" >&2
         fi
+
+        # Remove any 'ideographic description characters' and the
+        # source information from the evaluated composition
+        compositionOptions[idx]=$(echo "${compositionOptions[$idx]}" | sed 's/[⿰⿱⿲⿳⿴⿵⿶⿷⿸⿹⿺⿼⿽⿻㇯⿾⿿〾]//g')
+        compositionOptions[idx]=$(echo "${compositionOptions[$idx]}" | sed 's/(.*)//')
 
         local subComponents=''
         local validComponents=''
