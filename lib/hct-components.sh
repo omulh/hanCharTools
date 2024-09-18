@@ -74,6 +74,21 @@ if [[ -n $SOURCE_LETTERS ]]; then
     SOURCE_LETTERS=$(echo "$SOURCE_LETTERS" | tr '[:lower:]' '[:upper:]')
 fi
 
+# Process the tiebreaker option letters
+if [[ ${#TIEBREAKER_RULE} -gt 1 ]]; then
+    if [[ $QUIET == false ]]; then
+        echo "htc-$progName: only one argument may be given for the option 't|tiebreaker'" >&2
+        echo "$helpHint" >&2
+    fi
+    exit 2
+elif [[ -n $(echo $TIEBREAKER_RULE | sed 's/[fl]//g') ]]; then
+    if [[ $QUIET == false ]]; then
+        echo "htc-$progName: invalid argument for the option 't|tiebreaker'" >&2
+        echo "$helpHint" >&2
+    fi
+    exit 2
+fi
+
 # Process the positional arguments
 if [[ -z $1 ]]; then
     if [[ $QUIET == false ]]; then
@@ -96,23 +111,6 @@ else
         exit 2
     else
         INPUT="$1"
-    fi
-fi
-
-# Process the tiebreaker option letters
-if [[ -n $TIEBREAKER_RULE ]]; then
-    if [[ ${#TIEBREAKER_RULE} -gt 1 ]]; then
-        if [[ $QUIET == false ]]; then
-            echo "htc-$progName: only one argument may be given for the option 't|tiebreaker'" >&2
-            echo "$helpHint" >&2
-        fi
-        exit 2
-    elif [[ -n $(echo $TIEBREAKER_RULE | sed 's/[ln]//g') ]]; then
-        if [[ $QUIET == false ]]; then
-            echo "htc-$progName: invalid argument for the option 't|tiebreaker'" >&2
-            echo "$helpHint" >&2
-        fi
-        exit 2
     fi
 fi
 
