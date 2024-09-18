@@ -234,12 +234,28 @@ get_character_components () {
         return 30
     fi
 
-    # Chose the first valid components option
-    chosenComponentsOption="${validComponentsOptions[0]}"
-    if [[ $VERBOSE == true ]]; then
-        for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
-        echo "$chosenComponentsOption <- chosen components option" >&2
-    fi
+   # If there is only one valid components option, choose it
+   if [[ ${#validComponentsOptions[@]} == 1 ]]; then
+       chosenComponentsOption="${validComponentsOptions[*]}"
+   # Ohterwise, use one of the tiebreaker rules
+   else
+        # If tiebreaker rule is set to 'f', chose the first components option
+        if [[ $TIEBREAKER_RULE == f ]]; then
+            chosenComponentsOption="${validComponentsOptions[0]}"
+            if [[ $VERBOSE == true ]]; then
+                for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
+                echo "$chosenComponentsOption <- chosen option (by 'first' tiebreaker rule)" >&2
+            fi
+        # Otherwise, tiebreaker rule is set to 'l',
+        # chose the shortest components option
+        elif [[ $TIEBREAKER_RULE == l ]]; then
+            chosenComponentsOption="${validComponentsOptions[0]}"
+            if [[ $VERBOSE == true ]]; then
+                for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
+                echo "$chosenComponentsOption <- chosen option (by 'length' tiebreaker rule)" >&2
+            fi
+        fi
+   fi
 
     echo "$chosenComponentsOption"
     return 0
