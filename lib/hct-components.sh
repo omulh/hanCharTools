@@ -21,6 +21,9 @@ Options:
                     are to be considered as basic components, in addition to the IDS
                     database components (single stroke characters); the provided file
                     should consist of a list of single characters separated by newlines
+      --no-progress
+                    suppress the progress status from the stderr stream;
+                    this option is ignored if the input is a single character
 
   -q, --quiet       suppress error messages from the stderr stream
   -s, --source={GHMTJKPVUSBXYZ}
@@ -44,11 +47,12 @@ SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 
 QUIET=false
+SHOW_PROGRESS=true
 TIEBREAKER_RULE='f'
 VERBOSE=false
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o c:qs:t:vh -l "components:,quiet,source:,tiebreaker:,verbose,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o c:''qs:t:vh -l "components:,no-progress,quiet,source:,tiebreaker:,verbose,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -62,6 +66,8 @@ while true; do
     case "$1" in
         -c | --components )
             COMPONENTS_FILE="$2"; shift 2 ;;
+        --no-progress )
+            SHOW_PROGRESS=false; shift ;;
         -q | --quiet )
             QUIET=true; shift ;;
         -s | --source )
@@ -308,7 +314,9 @@ if [[ -e $INPUT ]]; then
     processCount=0
     while read testedChar; do
         ((processCount++))
-        echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
+        if [[ $SHOW_PROGRESS == true ]]; then
+            echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
+        fi
         components=$(get_character_components "$testedChar")
         exitCode=$?
         if [ $exitCode == 0 ]; then
@@ -325,7 +333,9 @@ if [[ -e $INPUT ]]; then
             fi
         fi
     done < "$INPUT"
-    echo -e "\r\033[0KProcessing done" >&2
+    if [[ $SHOW_PROGRESS == true ]]; then
+        echo -e "\r\033[0KProcessing done" >&2
+    fi
 # Otherwise it's a single character
 else
     components=$(get_character_components "$INPUT")
