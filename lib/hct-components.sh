@@ -250,7 +250,13 @@ get_character_components () {
         # Otherwise, tiebreaker rule is set to 'l',
         # chose the shortest components option
         elif [[ $TIEBREAKER_RULE == l ]]; then
-            chosenComponentsOption="${validComponentsOptions[0]}"
+            local shortestComponentsOption="${validComponentsOptions[0]}"
+            for idx in "${!validComponentsOptions[@]}"; do
+                if [[ ${#validComponentsOptions[$idx]} -lt ${#shortestComponentsOption} ]]; then
+                    shortestComponentsOption="${validComponentsOptions[$idx]}"
+                fi
+            done
+            chosenComponentsOption="$shortestComponentsOption"
             if [[ $VERBOSE == true ]]; then
                 for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
                 echo "$chosenComponentsOption <- chosen option (by 'length' tiebreaker rule)" >&2
