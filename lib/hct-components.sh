@@ -30,6 +30,7 @@ SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 
 QUIET=false
+TIEBREAKER_RULE='f'
 VERBOSE=false
 
 # Parse the command line arguments
