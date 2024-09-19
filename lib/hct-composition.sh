@@ -165,9 +165,15 @@ get_character_composition_wikt () {
     compositionString=$(echo "$compositionString" | sed 's/<[^>]*>//g')
     # Remove the first blankspace
     compositionString=$(echo "$compositionString" | sed 's/^ //')
-    # Remove the last solitary parenthesis
+    # Remove the last solitary parenthesis present in every composition string
     compositionString=$(echo "$compositionString" | sed 's/)$//')
-    # Separate the different composition options by a tab character
+    # Remove U+... and U&... inside of parentheses that are present in some compositions
+    compositionString=$(echo "$compositionString" | sed 's/U[+&][^)]*)/)/g')
+    # Remove the leftover 'or' inside of parentheses
+    compositionString=$(echo "$compositionString" | sed "s/ or )/)/g")
+    # Remove the lefover empty parentheses ()
+    compositionString=$(echo "$compositionString" | sed "s/()//g")
+    # Replace the ' or ', which separates different compositions, by a single tab character
     compositionString=$(echo "$compositionString" | sed "s/ or /\t/g")
 
     echo "$compositionString"
