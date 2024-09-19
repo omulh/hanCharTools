@@ -9,7 +9,9 @@ Options:
   -h, --help    show this text help and exit
 
 Available commands:
-  composition"
+  composition
+  components
+  readings"
 
 # Get the script's source dir.
 SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
@@ -19,7 +21,7 @@ if [[ -z $1 || $1 == -h || $1 == --help ]]; then
     echo "$helpText"
     exit 0
 else
-    if [[ $1 == composition || $1 == components ]]; then
+    if [[ $1 == composition || $1 == components || $1 == readings ]]; then
         exec $SOURCE_DIR/lib/hct-$1.sh "${@:2}"
     else
         echo "$progName: invalid command '$1'" >&2
