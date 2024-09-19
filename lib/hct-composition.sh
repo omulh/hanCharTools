@@ -46,13 +46,30 @@ Options:
   B -> UK
   X -> Alternative IDS for same glyph structure
   Y -> UCS2003 glyphs
-  Z -> Unifiable or plausible alternative form of the glyph"
+  Z -> Unifiable or plausible alternative form of the glyph
+
+Environment variables:
+  Environment variables are specially useful to avoid giving
+  arguments for a specific option which will be used repeatedly.
+  One environment variable is checked for when using this command:
+
+  HCT_SOURCE_LETTERS, to specify an input for the 'source' option.
+
+  The environment variables' value can be overwritten by
+  specifying the corresponding command line arguments.
+  Environment variables are ignored silently if they do
+  not contain a valid argument for the corresponding option."
 
 readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 
 QUIET=false
 USE_WIKTIONARY=false
+
+# Process the environment variables
+if [[ -n $HCT_SOURCE_LETTERS && -z $(echo $HCT_SOURCE_LETTERS | sed 's/[GHMTJKPVUSBXYZ]//g') ]]; then
+    SOURCE_LETTERS="$HCT_SOURCE_LETTERS"
+fi
 
 # Parse the command line arguments
 GIVEN_ARGS=$(getopt -n hct-$progName -o qs:wh -l "quiet,source:,wiktionary,help" -- "$@")
