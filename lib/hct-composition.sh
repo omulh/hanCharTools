@@ -150,7 +150,7 @@ get_character_composition_wikt () {
     # Check if the page has a 'Han character' section and the
     # corresponding line where the character composition should be
     local hanCharacterHeadword
-    hanCharacterHeadword=$(echo "$html" | grep -m 1 -A 15 '<div class="mw-heading mw-heading3"><h3 id="Han_character">Han character</h3>')
+    hanCharacterHeadword=$(echo "$html" | grep -m 1 -A 30 '<div class="mw-heading mw-heading3"><h3 id="Han_character">Han character</h3>')
     hanCharacterHeadword=$(echo "$hanCharacterHeadword" | grep '<span class="headword-line"><strong class="Hani headword" lang="mul">')
     [[ -z $hanCharacterHeadword ]] && return 21
 
