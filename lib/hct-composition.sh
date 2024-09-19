@@ -48,8 +48,8 @@ Options:
   Y -> UCS2003 glyphs
   Z -> Unifiable or plausible alternative form of the glyph"
 
-SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
-IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
+readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
+readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 
 QUIET=false
 USE_WIKTIONARY=false
