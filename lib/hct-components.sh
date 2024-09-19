@@ -13,7 +13,7 @@ Input:
 Output:
   For a single character: print the basic components for the given character to the stdout stream.
   For a character list: for each of the listed characters, print the character and
-    its basic components separated by a single tab character to the stdout stream.
+  its basic components separated by a single tab character to the stdout stream.
 
 Options:
   -c, --components=FILE
@@ -43,7 +43,20 @@ Options:
       --no-progress suppress the progress status from the stderr stream;
                     this option is ignored if the input is a single character
 
-  -h, --help        show this help message and exit"
+  -h, --help        show this help message and exit
+
+Environment variables:
+  Environment variables are specially useful to avoid giving
+  arguments for a specific option which will be used repeatedly.
+  Two environment variables are checked for when using this command:
+
+  HCT_SOURCE_LETTERS, to specify an input for the 'source' option.
+  HCT_COMPONENTS_FILE, to specify an input for the 'components' option.
+
+  The environment variables' value can be overwritten by
+  specifying the corresponding command line arguments.
+  Environment variables are ignored silently if they do
+  not contain a valid argument for the corresponding option."
 
 readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
@@ -52,6 +65,15 @@ QUIET=false
 SHOW_PROGRESS=true
 TIEBREAKER_RULE='f'
 VERBOSE=false
+
+# Process the environment variables
+if [[ -n $HCT_SOURCE_LETTERS && -z $(echo $HCT_SOURCE_LETTERS | sed 's/[GHMTJKPVUSBXYZ]//g') ]]; then
+    SOURCE_LETTERS="$HCT_SOURCE_LETTERS"
+fi
+
+if [[ -n $HCT_COMPONENTS_FILE && -e $HCT_COMPONENTS_FILE ]]; then
+    COMPONENTS_FILE="$HCT_COMPONENTS_FILE"
+fi
 
 # Parse the command line arguments
 GIVEN_ARGS=$(getopt -n hct-$progName -o c:qs:t:v''h -l "components:,quiet,source:,tiebreaker:,verbose,no-progress,help" -- "$@")
