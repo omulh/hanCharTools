@@ -320,17 +320,11 @@ if [[ -e $INPUT ]]; then
         components=$(get_character_components "$testedChar")
         exitCode=$?
         if [ $exitCode == 0 ]; then
-            if [ -t 1 ]; then
-                echo -e "\r\033[0K$testedChar\t$components"
-            else
-                echo -e "$testedChar\t$components"
-            fi
+            [ -t 1 ] && echo -en "\r\033[0K"
+            echo -e "$testedChar\t$components"
         else
-            if [ -t 1 ]; then
-                echo -e "\r\033[0K$testedChar\t$exitCode"
-            else
-                echo -e "$testedChar\t$exitCode"
-            fi
+            [ -t 1 ] && echo -en "\r\033[0K"
+            echo -e "$testedChar\t$exitCode"
         fi
     done < "$INPUT"
     if [[ $SHOW_PROGRESS == true ]]; then
