@@ -43,8 +43,8 @@ Options:
   -v, --verbose     print verbose messages to the stderr stream
   -h, --help        show this help message and exit"
 
-SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
-IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
+readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
+readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 
 QUIET=false
 SHOW_PROGRESS=true
