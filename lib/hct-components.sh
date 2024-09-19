@@ -21,9 +21,6 @@ Options:
                     are to be considered as basic components, in addition to the IDS
                     database components (single stroke characters); the provided file
                     should consist of a list of single characters separated by newlines
-      --no-progress
-                    suppress the progress status from the stderr stream;
-                    this option is ignored if the input is a single character
 
   -q, --quiet       suppress error messages from the stderr stream
   -s, --source={GHMTJKPVUSBXYZ}
@@ -40,7 +37,12 @@ Options:
                     l -> length, use the shortest available option
                     the default value for this option is 'f'
 
-  -v, --verbose     print verbose messages to the stderr stream
+  -v, --verbose     print verbose messages to the stderr stream; when this option
+                    is used, the 'no-progress' option is implicitly enabled
+
+      --no-progress suppress the progress status from the stderr stream;
+                    this option is ignored if the input is a single character
+
   -h, --help        show this help message and exit"
 
 readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
@@ -52,7 +54,7 @@ TIEBREAKER_RULE='f'
 VERBOSE=false
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o c:''qs:t:vh -l "components:,no-progress,quiet,source:,tiebreaker:,verbose,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o c:qs:t:v''h -l "components:,quiet,source:,tiebreaker:,verbose,no-progress,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -66,8 +68,6 @@ while true; do
     case "$1" in
         -c | --components )
             COMPONENTS_FILE="$2"; shift 2 ;;
-        --no-progress )
-            SHOW_PROGRESS=false; shift ;;
         -q | --quiet )
             QUIET=true; shift ;;
         -s | --source )
@@ -75,7 +75,11 @@ while true; do
         -t | --tiebreaker )
             TIEBREAKER_RULE="$2"; shift 2 ;;
         -v | --verbose )
-            VERBOSE=true; shift ;;
+            VERBOSE=true;
+            SHOW_PROGRESS=false;
+            shift ;;
+        --no-progress )
+            SHOW_PROGRESS=false; shift ;;
         -h | --help )
             echo "$helpText"; exit 0 ;;
         -- )
@@ -278,7 +282,7 @@ get_character_components () {
    # If there is only one valid components option, choose it
    if [[ ${#validComponentsOptions[@]} == 1 ]]; then
        chosenComponentsOption="${validComponentsOptions[*]}"
-   # Ohterwise, use one of the tiebreaker rules
+   # Otherwise, use one of the tiebreaker rules
    else
         # If tiebreaker rule is set to 'f', chose the first components option
         if [[ $TIEBREAKER_RULE == f ]]; then
