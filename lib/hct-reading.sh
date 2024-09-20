@@ -1,6 +1,6 @@
 #! /bin/sh
 
-readonly progName='readings'
+readonly progName='reading'
 readonly helpHint="Try 'hct $progName --help' for more information."
 readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
 Get the pronunciation for Chinese characters in different language systems.
