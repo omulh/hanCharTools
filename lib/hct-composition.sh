@@ -240,17 +240,11 @@ if [[ -e $INPUT ]]; then
         fi
         exitCode=$?
         if [ $exitCode == 0 ]; then
-            if [ -t 1 ]; then
-                echo -e "\r\033[0K$testedChar\t$composition"
-            else
-                echo -e "$testedChar\t$composition"
-            fi
+            [ -t 1 ] && echo -en "\r\033[0K"
+            echo -e "$testedChar\t$composition"
         else
-            if [ -t 1 ]; then
-                echo -e "\r\033[0K$testedChar\t$exitCode"
-            else
-                echo -e "$testedChar\t$exitCode"
-            fi
+            [ -t 1 ] && echo -en "\r\033[0K"
+            echo -e "$testedChar\t$exitCode"
         fi
     done < "$INPUT"
     echo -e "\r\033[0KProcessing done" >&2
