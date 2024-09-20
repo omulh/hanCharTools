@@ -34,11 +34,12 @@ readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 readonly READINGS_FILE="$SOURCE_DIR/../Unihan/Unihan_Readings.txt"
 
+GET_DEFINITION=false
 QUIET=false
 SOURCE_LETTER='M'
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o qs:h -l "quiet,source:,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o dqs:h -l "definition,quiet,source:,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -50,6 +51,8 @@ eval set -- "$GIVEN_ARGS"
 # Process the command line arguments
 while true; do
     case "$1" in
+        -d | --definition )
+            GET_DEFINITION=true; shift ;;
         -q | --quiet )
             QUIET=true; shift ;;
         -s | --source )
@@ -146,14 +149,20 @@ get_character_reading () {
     [[ -z $charUnicode ]] && return 2
 
     # Check if the given character is present in the Readings database
-    local charReading
-    charReading=$(grep "$charUnicode.$SOURCE_KEY" "$READINGS_FILE")
-    [[ -z $charReading ]] && return 3
+    ! grep -q "^$charUnicode" "$READINGS_FILE" && return 3
 
-    # Extract the pinyin reading and return it
-    local charPinyin
-    charPinyin=$(echo "$charReading" | sed "s/.*\t//")
-    echo "$charPinyin"
+    local charReading
+    if [[ $GET_DEFINITION == false ]]; then
+        charReading=$(grep "$charUnicode.$SOURCE_KEY" "$READINGS_FILE")
+        [[ -z $charReading ]] && return 4
+    else
+        charReading=$(grep "$charUnicode.kDefinition" "$READINGS_FILE")
+        [[ -z $charReading ]] && return 5
+    fi
+
+    # Extract the reading and return it
+    charReading=$(echo "$charReading" | sed "s/.*\t//")
+    echo "$charReading"
     return 0
 }
 
