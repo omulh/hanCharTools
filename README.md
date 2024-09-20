@@ -1,14 +1,36 @@
 # Han Character Tools
 
-Han Character Tools is a collection of command scripts and a main wrapper script that help get useful information about Han characters, specially for people learning a foreign language that uses them.  
+Han Character Tools is a collection of command line tools and a main wrapper script that help get useful information about Han characters, specially for people learning a foreign language that uses them.  
 
-Han characters would be most commonly associated to Chinese characters, however, Chinese is not the only language that uses them.  
+Han characters would be most commonly associated with the Chinese language, however, Chinese is not the only language that uses them.  
 From the [Wikipedia](https://en.wikipedia.org/wiki/Han_unification) article:  
 > Han characters are a feature shared in common by written Chinese (hanzi), Japanese (kanji), Korean (hanja) and Vietnamese (chữ Hán).
 
-## Features
+## Features at a glance
 
-Get the composition(s) of a given character by using ideographic description characters (IDC) and provide information of which regions use such composition.  
+Get the composition of a given character by using ideographic description characters (IDC) and providing information of the regions that use them.  
+```
+$ hct composition 的
+⿰白勺(GHTJPV)    ⿰白⿹勹丶(K)
+```
+
+Get the decomposition of a given character into its most basic elements, which could go down to every individual stroke.  
+```
+$ hct components 他
+㇒丨𠃌乚丨
+```
+
+Get the pronunciation, aka the reading, of a given character in different language systems.  
+```
+$ hct reading 人
+rén
+```
+
+Get the basic definition of a given character.  
+```
+$ hct reading --definition 和
+harmony, peace; peaceful, calm
+```
 
 ## Installation
 
