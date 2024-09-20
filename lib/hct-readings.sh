@@ -120,9 +120,9 @@ if [[ $exitCode == 0 ]]; then
 elif [[ $QUIET == false ]]; then
     case $exitCode in
         2)
-            echo "The given character is not present in the IDS database." >&2 ;;
+            echo "The given character is not present in the database." >&2 ;;
         3)
-            echo "The given character has no reading information for the selected source(s)." >&2 ;;
+            echo "The given character has no reading information for the selected source." >&2 ;;
     esac
 fi
 exit $exitCode
