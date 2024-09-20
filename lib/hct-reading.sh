@@ -173,9 +173,13 @@ if [[ $exitCode == 0 ]]; then
 elif [[ $QUIET == false ]]; then
     case $exitCode in
         2)
-            echo "The given character is not present in the database." >&2 ;;
+            echo "The given character is not present in the IDS database." >&2 ;;
         3)
+            echo "The given character is not present in the Readings database." >&2 ;;
+        4)
             echo "The given character has no reading information for the selected source." >&2 ;;
+        5)
+            echo "The given character has no definition information." >&2 ;;
     esac
 fi
 exit $exitCode
