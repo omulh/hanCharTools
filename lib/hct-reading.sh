@@ -3,7 +3,7 @@
 readonly progName='reading'
 readonly helpHint="Try 'hct $progName --help' for more information."
 readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
-Get the pronunciation for Chinese characters in different language systems.
+Get the pronunciation, aka the reading, for Chinese characters in different language systems.
 
 Input:
   A single input argument is accepted, and it must be one of two types:
@@ -16,6 +16,7 @@ Output:
   its reading separated by a single tab character to the stdout stream.
 
 Options:
+  -d, --definition  get a brief definition for the given input instead of its reading
   -q, --quiet       suppress error messages from the stderr stream
   -s, --source={CKMOUV}
                     a single character must be provided, out of C,K,M,O,U,V;
@@ -27,6 +28,7 @@ Options:
                     U -> Japanese Kun
                     V -> Vietnamese
                     the default value for this option is 'M'
+                    this option is ignored when using the 'definition' option
 
   -h, --help        show this help message and exit"
 
