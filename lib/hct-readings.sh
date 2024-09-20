@@ -114,4 +114,15 @@ get_character_reading () {
 }
 
 reading=$(get_character_reading "$INPUT")
-echo "$reading"
+exitCode=$?
+if [[ $exitCode == 0 ]]; then
+    echo "$reading"
+elif [[ $QUIET == false ]]; then
+    case $exitCode in
+        2)
+            echo "The given character is not present in the IDS database." >&2 ;;
+        3)
+            echo "The given character has no reading information for the selected source(s)." >&2 ;;
+    esac
+fi
+exit $exitCode
