@@ -24,9 +24,10 @@ readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 readonly READINGS_FILE="$SOURCE_DIR/../Unihan/Unihan_Readings.txt"
 
 QUIET=false
+SOURCE_LETTER='M'
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o qh -l "quiet,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o qs:h -l "quiet,source:,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -40,6 +41,8 @@ while true; do
     case "$1" in
         -q | --quiet )
             QUIET=true; shift ;;
+        -s | --source )
+            SOURCE_LETTER="$2"; shift 2 ;;
         -h | --help )
             echo "$helpText"; exit 0 ;;
         -- )
@@ -48,6 +51,36 @@ while true; do
             break ;;
     esac
 done
+
+# Process the source option letter
+if [[ ${#SOURCE_LETTER} -gt 1 ]]; then
+    if [[ $QUIET == false ]]; then
+        echo "htc-$progName: only one argument may be given for the option 's|source'" >&2
+        echo "$helpHint" >&2
+    fi
+    exit 2
+elif [[ -n $(echo $SOURCE_LETTER | sed 's/[CKMOUV]//gI') ]]; then
+    if [[ $QUIET == false ]]; then
+        echo "htc-$progName: invalid argument for the option 's|source'" >&2
+        echo "$helpHint" >&2
+    fi
+    exit 2
+else
+    case $SOURCE_LETTER in
+        c | C )
+            SOURCE_KEY='kCantonese' ;;
+        k | K )
+            SOURCE_KEY='kKorean' ;;
+        m | M )
+            SOURCE_KEY='kMandarin' ;;
+        o | O )
+            SOURCE_KEY='kJapaneseOn' ;;
+        u | U )
+            SOURCE_KEY='kJapaneseKun' ;;
+        v | V )
+            SOURCE_KEY='kVietnamese' ;;
+    esac
+fi
 
 # Process the positional arguments
 if [[ -z $1 ]]; then
@@ -103,7 +136,7 @@ get_character_reading () {
 
     # Check if the given character is present in the Readings database
     local charReading
-    charReading=$(grep "$charUnicode.kMandarin" "$READINGS_FILE")
+    charReading=$(grep "$charUnicode.$SOURCE_KEY" "$READINGS_FILE")
     [[ -z $charReading ]] && return 3
 
     # Extract the pinyin reading and return it
