@@ -168,20 +168,41 @@ get_character_reading () {
     return 0
 }
 
-reading=$(get_character_reading "$INPUT")
-exitCode=$?
-if [[ $exitCode == 0 ]]; then
-    echo "$reading"
-elif [[ $QUIET == false ]]; then
-    case $exitCode in
-        2)
-            echo "The given character is not present in the IDS database." >&2 ;;
-        3)
-            echo "The given character is not present in the Readings database." >&2 ;;
-        4)
-            echo "The given character has no reading information for the selected source." >&2 ;;
-        5)
-            echo "The given character has no definition information." >&2 ;;
-    esac
+# If input is a file
+if [[ -e $INPUT ]]; then
+    lineCount=$(sed -n '$=' "$INPUT")
+    processCount=0
+    while read testedChar; do
+        ((processCount++))
+        echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
+        reading=$(get_character_reading "$testedChar")
+        exitCode=$?
+        if [ $exitCode == 0 ]; then
+            [ -t 1 ] && echo -en "\r\033[0K"
+            echo -e "$testedChar\t$reading"
+        else
+            [ -t 1 ] && echo -en "\r\033[0K"
+            echo -e "$testedChar\t$exitCode"
+        fi
+    done < "$INPUT"
+    echo -e "\r\033[0KProcessing done" >&2
+# Otherwise it's a single character
+else
+    reading=$(get_character_reading "$INPUT")
+    exitCode=$?
+    if [[ $exitCode == 0 ]]; then
+        echo "$reading"
+    elif [[ $QUIET == false ]]; then
+        case $exitCode in
+            2)
+                echo "The given character is not present in the IDS database." >&2 ;;
+            3)
+                echo "The given character is not present in the Readings database." >&2 ;;
+            4)
+                echo "The given character has no reading information for the selected source." >&2 ;;
+            5)
+                echo "The given character has no definition information." >&2 ;;
+        esac
+    fi
+    exit $exitCode
 fi
-exit $exitCode
