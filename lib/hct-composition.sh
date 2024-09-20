@@ -3,7 +3,7 @@
 readonly progName='composition'
 readonly helpHint="Try 'hct $progName --help' for more information."
 readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
-Get the composition options for Chinese characters.
+Get the composition of Han characters, aka Chinese characters.
 
 Input:
   A single input argument is accepted, and it must be one of two types:
