@@ -17,6 +17,17 @@ Output:
 
 Options:
   -q, --quiet       suppress error messages from the stderr stream
+  -s, --source={CKMOUV}
+                    a single character must be provided, out of C,K,M,O,U,V;
+                    return the reading for the specified system, the options are:
+                    C -> Cantonese
+                    K -> Korean
+                    M -> Mandarin
+                    O -> Japanese On
+                    U -> Japanese Kun
+                    V -> Vietnamese
+                    the default value for this option is 'M'
+
   -h, --help        show this help message and exit"
 
 readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
