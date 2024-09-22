@@ -27,7 +27,7 @@ $ hct components 在
 一丿丨一丨一
 ```
 
-Get the pronunciation, aka the reading, of a given character in different language systems.  
+Get the pronunciation, aka the reading, of a given character in different language systems, e.g. Mandarin and Vietnamese.  
 ```
 $ hct reading 人 -s M
 rén
@@ -42,6 +42,13 @@ $ hct reading --definition 和
 harmony, peace; peaceful, calm
 ```
 
+## Acknowledgements
+
+This tool is made possible greatly thanks to two databases:  
+ 1. [IDS Database](https://www.babelstone.co.uk/CJK/IDS.HTML), which consisits of the Ideographic Description Sequences (IDS) for all encoded CJK Unified Ideographs.  
+Several small changes were introduced by myself (Omar L.) to make it more compatible with the scripts.  
+ 2. [Unicode Han Database](https://www.unicode.org/Public/UCD/latest/ucd/Unihan.zip), which has the Unicode's collective knowledge on the Han ideographs that are part of the Unicode Standard.
+
 ## Installation
 
 Clone this repo with git:  
@@ -52,5 +59,4 @@ If needed, make a symlink of the main wrapper script to a dir. which is included
 
 ### Requirements
 
-A few basic tools must be available in the system for this tool to work:  
-curl, grep, tr, readlink, sed  
+The scripts rely on basic tools such as curl, grep, readlink, sed, etc., that should be present already in most Linux installations.  
