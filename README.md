@@ -82,17 +82,26 @@ $ hct variants 子 --semantic
 只(Lau) 
 ```
 
-### Process a file instead of a single character
+### Process a file or the stdin instead of a single character
 
 For any of the commands, a file may be specified as an input for serial processing.  
 ```
-$ hct reading chars.txt
+$ hct reading 5-chars.txt
 的      de
-一      yī
 是      shì
 在      zài
 有      yǒu
 我      wǒ
+```
+
+For any of the commands, the input may be piped from other commands.  
+```
+$ head -n5 100-chars.txt | hct reading - --definition
+的	possessive, adjectival suffix
+一	one; a, an; alone
+是	indeed, yes, right; to be; demonstrative pronoun, this, that
+不	no, not; un-; negative prefix
+了	to finish; particle of completed action
 ```
 
 ## Acknowledgements
