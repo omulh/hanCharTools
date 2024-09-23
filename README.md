@@ -22,10 +22,10 @@ $ hct composition 和
 Filter out compositions that do not match the specified source region(s).  
 ```
 $ hct composition 刃
-⿹刀㇒(GKV[B])  ⿹刀丶(HT)  ⿻刀丶(JP)  ⿹𠃌㐅(X)
+⿹刀㇒(GKV[B]) ⿹刀丶(HT) ⿻刀丶(JP) ⿹𠃌㐅(X)
 
 $ hct composition 刃 -s HJ
-⿹刀丶(HT)  ⿻刀丶(JP)
+⿹刀丶(HT) ⿻刀丶(JP)
 ```
 
 Get the composition information from Wiktionary instead of the local database.  
@@ -60,13 +60,31 @@ uống
 
 Get the basic definition of a given character.  
 ```
-$ hct reading --definition 和
+$ hct reading 和 --definition
 harmony, peace; peaceful, calm
+```
+
+### Character variants
+
+Get the traditional or simplified variants of a given character.  
+```
+$ hct variants 么 --traditional
+幺 麼 麽
+
+$ hct variants 説 --simplified
+说
+```
+
+Get the semantic variant, i.e. a character with identical meaning, of a given character.  
+The dictionary source and some additional information are found between parentheses.  
+```
+$ hct variants 子 --semantic
+只(Lau) 
 ```
 
 ### Process a file instead of a single character
 
-For any given command, a file may be specified as an input for serial processing.  
+For any of the commands, a file may be specified as an input for serial processing.  
 ```
 $ hct reading chars.txt
 的      de
