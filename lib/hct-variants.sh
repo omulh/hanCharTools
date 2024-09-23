@@ -128,5 +128,30 @@ function get_character_variants {
     return 0
 }
 
-variants=$(get_character_variants "$INPUT")
-echo "$variants"
+# If input is a file
+if [[ -e $INPUT ]]; then
+    lineCount=$(sed -n '$=' "$INPUT")
+    processCount=0
+    while read testedChar; do
+        ((processCount++))
+        echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
+        variants=$(get_character_variants "$testedChar")
+        exitCode=$?
+        if [ $exitCode == 0 ]; then
+            [ -t 1 ] && echo -en "\r\033[0K"
+            echo -e "$testedChar\t$variants"
+        else
+            [ -t 1 ] && echo -en "\r\033[0K"
+            echo -e "$testedChar\t$exitCode"
+        fi
+    done < "$INPUT"
+    echo -e "\r\033[0KProcessing done" >&2
+# Otherwise it's a single character
+else
+    variants=$(get_character_variants "$INPUT")
+    exitCode=$?
+    if [[ $exitCode == 0 ]]; then
+        echo "$variants"
+    fi
+    exit $exitCode
+fi
