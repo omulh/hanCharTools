@@ -6,8 +6,9 @@ readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
 Get the variants, i.e. traditional, simplified or semantic variants, of Han characters, aka Chinese characters.
 
 Input:
-  A single input argument is accepted, and it must be one of two types:
-  A single character or a file containing a list of single characters separated by newlines.
+  A single input argument is accepted, and it must be one of three types:
+  A single character, a file containing a list of single characters separated
+  by newlines, or a '-' character to allow reading from the stdin stream.
   If the input argument is longer than one character, it is assumed to be a file.
 
 Output:
