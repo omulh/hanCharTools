@@ -363,8 +363,9 @@ if [[ -e $INPUT ]]; then
     if [[ $SHOW_PROGRESS == true ]]; then
         echo -e "\r\033[0KProcessing done" >&2
     fi
-# Otherwise it's a single character
-else
+    exit 0
+# If input is a single character
+elif [[ ${#INPUT} == 1 ]]; then
     components=$(get_character_components "$INPUT")
     exitCode=$?
     if [[ $exitCode == 0 ]]; then
@@ -382,4 +383,23 @@ else
         esac
     fi
     exit $exitCode
+# Otherwise, input comes from stdin
+else
+    lineCount=$(echo "$INPUT" | sed -n '$=')
+    processCount=0
+    while read testedChar; do
+        ((processCount++))
+        echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
+        components=$(get_character_components "$testedChar")
+        exitCode=$?
+        if [ $exitCode == 0 ]; then
+            [ -t 1 ] && echo -en "\r\033[0K"
+            echo -e "$testedChar\t$components"
+        else
+            [ -t 1 ] && echo -en "\r\033[0K"
+            echo -e "$testedChar\t$exitCode"
+        fi
+    done < <(echo "$INPUT")
+    echo -e "\r\033[0KProcessing done" >&2
+    exit 0
 fi
