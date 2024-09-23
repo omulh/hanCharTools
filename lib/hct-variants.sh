@@ -13,7 +13,7 @@ QUIET=false
 VARIANT_KEY='kSimplifiedVariant'
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-simplify -o qsth -l "quiet,simplified,traditional,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-simplify -o q''''''h -l "quiet,semantic,simplified,traditional,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -27,9 +27,11 @@ while true; do
     case "$1" in
         -q | --quiet )
             QUIET=true; shift ;;
-        -s | --simplified )
+        --semantic )
+            VARIANT_KEY='kSemanticVariant'; shift ;;
+        --simplified )
             VARIANT_KEY='kSimplifiedVariant'; shift ;;
-        -t | --traditional )
+        --traditional )
             VARIANT_KEY='kTraditionalVariant'; shift ;;
         -h | --help )
             echo "$helpText"; exit 0 ;;
