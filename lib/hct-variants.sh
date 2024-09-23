@@ -72,7 +72,7 @@ if [[ ! -e $IDS_FILE ]]; then
     fi
     exit 3
 fi
-# Deal with invalid common files
+# Deal with invalid Variants files
 if [[ ! -e $VARIANTS_FILE ]]; then
     if [[ $QUIET == false ]]; then
         echo "hct-$progName: Unihan Variants file not found, aborting" >&2
