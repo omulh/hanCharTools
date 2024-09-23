@@ -3,7 +3,26 @@
 readonly progName='variants'
 readonly helpHint="Try 'hct $progName --help' for more information."
 readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
-Get the variants, e.g. traditional, simplified or semantic variants, of Han characters, aka Chinese characters."
+Get the variants, i.e. traditional, simplified or semantic variants, of Han characters, aka Chinese characters.
+
+Input:
+  A single input argument is accepted, and it must be one of two types:
+  A single character or a file containing a list of single characters separated by newlines.
+  If the input argument is longer than one character, it is assumed to be a file.
+
+Output:
+  For a single character: print the variants of the chosen type to the stdout stream;
+    if more than one variant is available, separate the options with a single blankspace.
+  For a character list: for each of the listed characters, print the character and
+    its variants separated by a single tab character to the stdout stream; if more
+    than one variant is available, separate the options with a single blankspace.
+
+Options:
+  -q, --quiet        suppress error messages from the stderr stream
+      --semantic     query for semantic variants of the given character
+      --simplified   query for simplivied variants of the given character
+      --traditional  query for traditional variants of the given character
+  -h, --help         show this help message and exit"
 
 readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
