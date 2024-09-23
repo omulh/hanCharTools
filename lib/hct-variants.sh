@@ -97,6 +97,34 @@ function get_character_variants {
     # Check if the given character is present in the Variants database
     ! grep -q "^$charUnicode" "$VARIANTS_FILE" && return 3
 
+    # Get the entry's text for the chosen variant type; this consists of one or
+    # more unicode numbers separated by blankspaces, i.e. U+1234 plus an extra
+    # info source info field for 'semantic' variants in the form of <kSource1
+    local charVariants
+    charVariants=$(grep "$charUnicode.$VARIANT_KEY" "$VARIANTS_FILE" | sed "s/.*\t//")
+    [[ -z $charVariants ]] && return 4
+
+    # For 'simplified' and 'traditional' variants, remove from
+    # the retrieved unicode numbers the unicode number of the
+    # given character itself, which is present for some entries
+    if [[ $VARIANT_KEY == kSimplifiedVariant|| $VARIANT_KEY == kTraditionalVariant ]]; then
+        charVariants=$(echo "$charVariants" | sed "s/$charUnicode *//")
+        [[ -z $charVariants ]] && return 5
+    fi
+
+    # For 'semantic' variants, put the reference source for the given
+    # variant inside of parentheses and remove the 'k' from the sources
+    if [[ $VARIANT_KEY == kSemanticVariant ]]; then
+        charVariants=$(echo "$charVariants" | sed "s/<\([^ ]*\) */(\1) /g")
+        charVariants=$(echo "$charVariants" | sed "s/(k/(/g")
+        charVariants=$(echo "$charVariants" | sed "s/,k/,/g")
+    fi
+
+    # Format the unicode numbers to print them
+    # with echo, i.e., change from U+1234 to \U1234
+    charVariants=$(echo "$charVariants" | sed 's/U+/\\U/g')
+
+    echo -e "$charVariants"
     return 0
 }
 
