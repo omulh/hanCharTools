@@ -22,7 +22,11 @@ Options:
       --semantic     query for semantic variants of the given character
       --simplified   query for simplivied variants of the given character
       --traditional  query for traditional variants of the given character
-  -h, --help         show this help message and exit"
+  -h, --help         show this help message and exit
+
+  when multiple options are specified, out of 'semantic', 'simplified'
+  and 'traditional', only the last given option is considered; when
+  none of these options is specified, the 'simplified' option is implied"
 
 readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
