@@ -125,7 +125,7 @@ elif [[ -n $2 ]]; then
     fi
     exit 2
 else
-    if [[ ! -e $1 && ${#1} != 1 ]]; then
+    if [[ ${#1} != 1 && ! -e $1 ]]; then
         if [[ $QUIET == false ]]; then
             echo "htc-$progName: input file does not exist." >&2
             echo "$helpHint" >&2
