@@ -26,8 +26,6 @@ while true; do
     case "$1" in
         -q | --quiet )
             QUIET=true; shift ;;
-        -t | --type )
-            VARIANT_TYPE_LETTER="$2"; shift 2 ;;
         -h | --help )
             echo "$helpText"; exit 0 ;;
         -- )
