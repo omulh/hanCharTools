@@ -10,9 +10,10 @@ readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 readonly VARIANTS_FILE="$SOURCE_DIR/../Unihan/Unihan_Variants.txt"
 
 QUIET=false
+VARIANT_KEY='kSimplifiedVariant'
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-simplify -o qh -l "quiet,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-simplify -o qsth -l "quiet,simplified,traditional,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -26,6 +27,10 @@ while true; do
     case "$1" in
         -q | --quiet )
             QUIET=true; shift ;;
+        -s | --simplified )
+            VARIANT_KEY='kSimplifiedVariant'; shift ;;
+        -t | --traditional )
+            VARIANT_KEY='kTraditionalVariant'; shift ;;
         -h | --help )
             echo "$helpText"; exit 0 ;;
         -- )
