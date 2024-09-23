@@ -152,6 +152,17 @@ else
     exitCode=$?
     if [[ $exitCode == 0 ]]; then
         echo "$variants"
+    elif [[ $QUIET == false ]]; then
+        case $exitCode in
+            2)
+                echo "The given character is not present in the IDS database." >&2 ;;
+            3)
+                echo "The given character is not present in the Variants database." >&2 ;;
+            4)
+                echo "The given character has no variants for the selected type." >&2 ;;
+            5)
+                echo "The given character has no valid variants for the selected type." >&2 ;;
+        esac
     fi
     exit $exitCode
 fi
