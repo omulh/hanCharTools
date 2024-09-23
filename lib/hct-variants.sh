@@ -78,6 +78,13 @@ elif [[ -n $2 ]]; then
         echo "$helpHint" >&2
     fi
     exit 2
+elif [[ $1 == - ]]; then
+    if [ -t 0 ]; then
+        echo "htc-$progName: argument '-' specified without input on stdin." >&2
+        echo "$helpHint" >&2
+    else
+        read -d '' INPUT
+    fi
 else
     if [[ ${#1} != 1 && ! -e $1 ]]; then
         if [[ $QUIET == false ]]; then
