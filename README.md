@@ -5,31 +5,53 @@ The tool consists of a couple of databases, a collection of bash scripts and mai
 
 Han characters would be most commonly associated with the Chinese language, however, Chinese is not the only language that uses them.  
 From the [Wikipedia](https://en.wikipedia.org/wiki/Han_unification) article:  
+> Han unification is an effort by the authors of Unicode and the Universal Character Set to map multiple character sets of the Han characters of the so-called CJK languages into a single set of unified characters.
 > Han characters are a feature shared in common by written Chinese (hanzi), Japanese (kanji), Korean (hanja) and Vietnamese (chữ Hán).
 
 ## Features at a glance
 
-Get the composition of a given character by using ideographic description characters (IDCs) and providing information of the source regions that uses such composition.  
-```
-$ hct composition 的
-⿰白勺(GHTJPV)  ⿰白⿹勹丶(K)
+### Character composition
 
+Get the composition of a given character by using an ideographic description sequence ([IDS](https://en.wikipedia.org/wiki/Chinese_character_description_languages#Ideographic_Description_Sequences)).  
+A letter code containing the source region(s) for any given composition is also included between parentheses.  
+```
+$ hct composition 和
+⿰禾口(GHTJKPV)
+```
+
+Filter out compositions that do not match the specified source region(s).  
+```
 $ hct composition 刃
 ⿹刀㇒(GKV[B])  ⿹刀丶(HT)  ⿻刀丶(JP)  ⿹𠃌㐅(X)
+
+$ hct composition 刃 -s HJ
+⿹刀丶(HT)  ⿻刀丶(JP)
 ```
+
+Get the composition information from Wiktionary instead of the local database.  
+This method is comparatively slow, and the formatting of the queried compositions is not as consistent as the ones in the local database.
+This is useful, however, to query (the very few) characters which may be missing from the local database.  
+```
+$ hct composition 𬺷
+The given character has no valid composition options.
+
+$ hct composition 𬺷 -w
+⿱丆⿹㇁丿
+```
+
+### Character components
 
 Get the decomposition of a given character into its most basic elements, which may go down to every individual stroke.  
 ```
 $ hct components 他
 ㇒丨𠃌乚丨
-
-$ hct components 在
-一丿丨一丨一
 ```
 
-Get the pronunciation, aka the reading, of a given character in different language systems, e.g. Mandarin and Vietnamese.  
+### Character reading and definition
+
+Get the pronunciation, aka the reading, of a given character in different language systems, e.g. Mandarin (the default) or Vietnamese.  
 ```
-$ hct reading 人 -s M
+$ hct reading 人
 rén
 
 $ hct reading 㕵 -s V
@@ -40,6 +62,19 @@ Get the basic definition of a given character.
 ```
 $ hct reading --definition 和
 harmony, peace; peaceful, calm
+```
+
+### Process a file instead of a single character
+
+For any given command, a file may be specified as an input for serial processing.  
+```
+$ hct reading chars.txt
+的      de
+一      yī
+是      shì
+在      zài
+有      yǒu
+我      wǒ
 ```
 
 ## Acknowledgements
