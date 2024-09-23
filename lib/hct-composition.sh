@@ -13,10 +13,10 @@ Input:
 Output:
   For a single character: print the composition for the given character
     to the stdout stream; if more than one composition option is available,
-    separate the options with a single tab character.
+    separate the options with a single whitespace.
   For a character list: for each of the listed characters, print the character and its
     composition separated by a single tab character to the stdout stream; if more than
-    one composition option is available, separate the options with a single tab char.
+    one composition option is available, separate the options with a single whitespace.
 
 Options:
   -q, --quiet       suppress error messages from the stderr stream
