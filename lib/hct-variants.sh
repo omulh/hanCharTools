@@ -145,7 +145,8 @@ function get_character_variants {
     # For 'semantic' variants, put the reference source for the given
     # variant inside of parentheses and remove the 'k' from the sources
     if [[ $VARIANT_KEY == kSemanticVariant ]]; then
-        charVariants=$(echo "$charVariants" | sed "s/<\([^ ]*\) */(\1) /g")
+        charVariants=$(echo "$charVariants" | sed "s/<\([^ ]*\) /(\1) /g")
+        charVariants=$(echo "$charVariants" | sed "s/<\([^ ]*\)$/(\1)/g")
         charVariants=$(echo "$charVariants" | sed "s/(k/(/g")
         charVariants=$(echo "$charVariants" | sed "s/,k/,/g")
     fi
