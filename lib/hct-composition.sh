@@ -246,6 +246,17 @@ get_character_composition_ids () {
 if [[ -e $INPUT ]]; then
     lineCount=$(sed -n '$=' "$INPUT")
     processCount=0
+    if [ ! -t 1 ]; then
+        if [[ $USE_WIKTIONARY == false ]]; then
+            if [[ -n $SOURCE_LETTERS ]]; then
+                echo "# Used options"
+                echo "# SOURCE_LETTERS=$SOURCE_LETTERS"
+            fi
+        else
+            echo "# Used options"
+            echo "# USE_WIKTIONARY=$USE_WIKTIONARY"
+        fi
+    fi
     while read testedChar; do
         ((processCount++))
         echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
@@ -294,6 +305,17 @@ elif [[ ${#INPUT} == 1 ]]; then
 else
     lineCount=$(echo "$INPUT" | sed -n '$=')
     processCount=0
+    if [ ! -t 1 ]; then
+        if [[ $USE_WIKTIONARY == false ]]; then
+            if [[ -n $SOURCE_LETTERS ]]; then
+                echo "# Used options"
+                echo "# SOURCE_LETTERS=$SOURCE_LETTERS"
+            fi
+        else
+            echo "# Used options"
+            echo "# USE_WIKTIONARY=$USE_WIKTIONARY"
+        fi
+    fi
     while read testedChar; do
         ((processCount++))
         echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2

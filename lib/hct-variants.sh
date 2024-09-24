@@ -174,6 +174,10 @@ function get_character_variants {
 if [[ -e $INPUT ]]; then
     lineCount=$(sed -n '$=' "$INPUT")
     processCount=0
+    if [ ! -t 1 ]; then
+        echo "# Used options"
+        echo "# USED_VARIANT=$USED_VARIANT"
+    fi
     while read testedChar; do
         ((processCount++))
         echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
@@ -212,6 +216,10 @@ elif [[ ${#INPUT} == 1 ]]; then
 else
     lineCount=$(echo "$INPUT" | sed -n '$=')
     processCount=0
+    if [ ! -t 1 ]; then
+        echo "# Used options"
+        echo "# USED_VARIANT=$USED_VARIANT"
+    fi
     while read testedChar; do
         ((processCount++))
         echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
