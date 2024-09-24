@@ -80,7 +80,7 @@ if [[ ${#SOURCE_LETTER} -gt 1 ]]; then
         echo "$helpHint" >&2
     fi
     exit 2
-elif [[ -n $(echo $SOURCE_LETTER | sed 's/[CKMOUV]//gI') ]]; then
+elif [[ -n $(echo "$SOURCE_LETTER" | sed 's/[CKMOUV]//gI') ]]; then
     if [[ $QUIET == false ]]; then
         echo "htc-$progName: invalid argument for the option 's|source'" >&2
         echo "$helpHint" >&2

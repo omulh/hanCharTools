@@ -70,7 +70,7 @@ TIEBREAKER_RULE='f'
 VERBOSE=false
 
 # Process the environment variables
-if [[ -n $HCT_SOURCE_LETTERS && -z $(echo $HCT_SOURCE_LETTERS | sed 's/[GHMTJKPVUSBXYZ]//g') ]]; then
+if [[ -n $HCT_SOURCE_LETTERS && -z $(echo "$HCT_SOURCE_LETTERS" | sed 's/[GHMTJKPVUSBXYZ]//g') ]]; then
     SOURCE_LETTERS="$HCT_SOURCE_LETTERS"
 fi
 
@@ -127,7 +127,7 @@ fi
 
 # Process the source option letters
 if [[ -n $SOURCE_LETTERS ]]; then
-    if [[ -n $(echo $SOURCE_LETTERS | sed 's/[GHMTJKPVUSBXYZ]//gI') ]]; then
+    if [[ -n $(echo "$SOURCE_LETTERS" | sed 's/[GHMTJKPVUSBXYZ]//gI') ]]; then
         if [[ $QUIET == false ]]; then
             echo "htc-$progName: invalid argument for the option 's|source'" >&2
             echo "$helpHint" >&2
@@ -144,7 +144,7 @@ if [[ ${#TIEBREAKER_RULE} -gt 1 ]]; then
         echo "$helpHint" >&2
     fi
     exit 2
-elif [[ -n $(echo $TIEBREAKER_RULE | sed 's/[fl]//g') ]]; then
+elif [[ -n $(echo "$TIEBREAKER_RULE" | sed 's/[fl]//g') ]]; then
     if [[ $QUIET == false ]]; then
         echo "htc-$progName: invalid argument for the option 't|tiebreaker'" >&2
         echo "$helpHint" >&2
@@ -231,9 +231,9 @@ get_character_components () {
     local compositionString
     local errCode
     if [[ -z $SOURCE_LETTERS ]]; then
-        compositionString=$($SOURCE_DIR/hct-composition.sh -q $givenChar)
+        compositionString=$("$SOURCE_DIR/hct-composition.sh" -q "$givenChar")
     else
-        compositionString=$($SOURCE_DIR/hct-composition.sh -q -s $SOURCE_LETTERS $givenChar)
+        compositionString=$("$SOURCE_DIR/hct-composition.sh" -q -s "$SOURCE_LETTERS" "$givenChar")
     fi
     errCode=$?
     if [[ $errCode != 0 ]]; then
