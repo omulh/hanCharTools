@@ -1,6 +1,7 @@
 #! /bin/sh
 
 readonly progName='components'
+readonly progVersion=0.9
 readonly helpHint="Try 'hct $progName --help' for more information."
 readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
 Decompose Han characters, aka Chinese characters, into their basic components.
@@ -77,7 +78,7 @@ if [[ -n $HCT_COMPONENTS_FILE && -e $HCT_COMPONENTS_FILE ]]; then
 fi
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o c:qs:t:v''h -l "components:,quiet,source:,tiebreaker:,verbose,no-progress,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o c:qs:t:v''Vh -l "components:,quiet,source:,tiebreaker:,verbose,no-progress,version,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -103,6 +104,8 @@ while true; do
             shift ;;
         --no-progress )
             SHOW_PROGRESS=false; shift ;;
+        -V | --version )
+            echo "hct $progVersion"; exit 0 ;;
         -h | --help )
             echo "$helpText"; exit 0 ;;
         -- )

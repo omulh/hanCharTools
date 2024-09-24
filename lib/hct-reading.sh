@@ -1,6 +1,7 @@
 #! /bin/sh
 
 readonly progName='reading'
+readonly progVersion=0.9
 readonly helpHint="Try 'hct $progName --help' for more information."
 readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
 Get the pronunciation (reading) of Han characters, aka Chinese characters, in different language systems.
@@ -42,7 +43,7 @@ QUIET=false
 SOURCE_LETTER='M'
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o dqs:h -l "definition,quiet,source:,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o dqs:Vh -l "definition,quiet,source:,version,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -60,6 +61,8 @@ while true; do
             QUIET=true; shift ;;
         -s | --source )
             SOURCE_LETTER="$2"; shift 2 ;;
+        -V | --version )
+            echo "hct $progVersion"; exit 0 ;;
         -h | --help )
             echo "$helpText"; exit 0 ;;
         -- )

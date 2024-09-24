@@ -1,6 +1,7 @@
 #! /bin/sh
 
 readonly progName='composition'
+readonly progVersion=0.9
 readonly helpHint="Try 'hct $progName --help' for more information."
 readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
 Get the composition of Han characters, aka Chinese characters.
@@ -73,7 +74,7 @@ if [[ -n $HCT_SOURCE_LETTERS && -z $(echo $HCT_SOURCE_LETTERS | sed 's/[GHMTJKPV
 fi
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o qs:wh -l "quiet,source:,wiktionary,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o qs:wVh -l "quiet,source:,wiktionary,version,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -91,6 +92,8 @@ while true; do
             SOURCE_LETTERS="$2"; shift 2 ;;
         -w | --wiktionary )
             USE_WIKTIONARY=true; shift ;;
+        -V | --version )
+            echo "hct $progVersion"; exit 0 ;;
         -h | --help )
             echo "$helpText"; exit 0 ;;
         -- )
