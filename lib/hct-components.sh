@@ -346,6 +346,12 @@ get_character_components () {
 if [[ -e $INPUT ]]; then
     lineCount=$(sed -n '$=' "$INPUT")
     processCount=0
+    if [ ! -t 1 ]; then
+        echo "# Used options"
+        echo "# TIEBREAKER_RULE=$TIEBREAKER_RULE"
+        [[ -n $SOURCE_LETTERS ]] && echo "# SOURCE_LETTERS=$SOURCE_LETTERS"
+        [[ -n $COMPONENTS_FILE ]] && echo "# COMPONENTS_FILE=$COMPONENTS_FILE"
+    fi
     while read testedChar; do
         ((processCount++))
         if [[ $SHOW_PROGRESS == true ]]; then
@@ -388,6 +394,12 @@ elif [[ ${#INPUT} == 1 ]]; then
 else
     lineCount=$(echo "$INPUT" | sed -n '$=')
     processCount=0
+    if [ ! -t 1 ]; then
+        echo "# Used options"
+        echo "# TIEBREAKER_RULE=$TIEBREAKER_RULE"
+        [[ -n $SOURCE_LETTERS ]] && echo "# SOURCE_LETTERS=$SOURCE_LETTERS"
+        [[ -n $COMPONENTS_FILE ]] && echo "# COMPONENTS_FILE=$COMPONENTS_FILE"
+    fi
     while read testedChar; do
         ((processCount++))
         echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2

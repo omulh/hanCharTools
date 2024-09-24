@@ -180,6 +180,14 @@ get_character_reading () {
 if [[ -e $INPUT ]]; then
     lineCount=$(sed -n '$=' "$INPUT")
     processCount=0
+    if [ ! -t 1 ]; then
+        echo "# Used options"
+        if [[ $GET_DEFINITION == false ]]; then
+            echo "# SOURCE_LETTER=$SOURCE_LETTER"
+        else
+            echo "# GET_DEFINITION=$GET_DEFINITION"
+        fi
+    fi
     while read testedChar; do
         ((processCount++))
         echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
@@ -218,6 +226,14 @@ elif [[ ${#INPUT} == 1 ]]; then
 else
     lineCount=$(echo "$INPUT" | sed -n '$=')
     processCount=0
+    if [ ! -t 1 ]; then
+        echo "# Used options"
+        if [[ $GET_DEFINITION == false ]]; then
+            echo "# SOURCE_LETTER=$SOURCE_LETTER"
+        else
+            echo "# GET_DEFINITION=$GET_DEFINITION"
+        fi
+    fi
     while read testedChar; do
         ((processCount++))
         echo -ne "\r\033[0KProcessing line $processCount/$lineCount" >&2
