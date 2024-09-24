@@ -31,7 +31,7 @@ else
         exec "$SOURCE_DIR"/lib/hct-"$1".sh "${@:2}"
     else
         echo "$progName: invalid command '$1'" >&2
-        echo "Try '$progName --help' for more information." >&2
+        echo "$helpHint" >&2
         exit 1
     fi
 fi
