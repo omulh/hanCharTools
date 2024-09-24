@@ -1,6 +1,7 @@
 #! /bin/sh
 
 readonly progName='variants'
+readonly progVersion=0.9
 readonly helpHint="Try 'hct $progName --help' for more information."
 readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
 Get the variants, i.e. traditional, simplified or semantic variants, of Han characters, aka Chinese characters.
@@ -37,7 +38,7 @@ QUIET=false
 USED_VARIANT='simplified'
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-simplify -o q''''''h -l "quiet,semantic,simplified,traditional,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-simplify -o q''''''Vh -l "quiet,semantic,simplified,traditional,version,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -57,6 +58,8 @@ while true; do
             USED_VARIANT='simplified'; shift ;;
         --traditional )
             USED_VARIANT='traditional'; shift ;;
+        -V | --version )
+            echo "hct $progVersion"; exit 0 ;;
         -h | --help )
             echo "$helpText"; exit 0 ;;
         -- )
