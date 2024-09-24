@@ -34,7 +34,7 @@ readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 readonly VARIANTS_FILE="$SOURCE_DIR/../Unihan/Unihan_Variants.txt"
 
 QUIET=false
-VARIANT_KEY='kSimplifiedVariant'
+USED_VARIANT='simplified'
 
 # Parse the command line arguments
 GIVEN_ARGS=$(getopt -n hct-simplify -o q''''''h -l "quiet,semantic,simplified,traditional,help" -- "$@")
@@ -52,11 +52,11 @@ while true; do
         -q | --quiet )
             QUIET=true; shift ;;
         --semantic )
-            VARIANT_KEY='kSemanticVariant'; shift ;;
+            USED_VARIANT='semantic'; shift ;;
         --simplified )
-            VARIANT_KEY='kSimplifiedVariant'; shift ;;
+            USED_VARIANT='simplified'; shift ;;
         --traditional )
-            VARIANT_KEY='kTraditionalVariant'; shift ;;
+            USED_VARIANT='traditional'; shift ;;
         -h | --help )
             echo "$helpText"; exit 0 ;;
         -- )
@@ -65,6 +65,16 @@ while true; do
             break ;;
     esac
 done
+
+# Process the variant option
+case $USED_VARIANT in
+    semantic )
+        VARIANT_KEY='kSemanticVariant' ;;
+    simplified )
+        VARIANT_KEY='kSimplifiedVariant' ;;
+    traditional )
+        VARIANT_KEY='kTraditionalVariant' ;;
+esac
 
 # Process the positional arguments
 if [[ -z $1 ]]; then
