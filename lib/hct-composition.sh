@@ -228,7 +228,7 @@ get_character_composition_ids () {
         fi
     done
     # Check if the given character still has at least one valid composition option
-    [[ -z ${compositionOptions[@]} ]] && return 12
+    [[ -z ${compositionOptions[*]} ]] && return 12
 
     # If a source region was specified, filter out composition
     # options that do not have the letter of that source
@@ -240,7 +240,7 @@ get_character_composition_ids () {
         done
     fi
     # Check if the given character still has at least one valid composition option
-    [[ -z ${compositionOptions[@]} ]] && return 13
+    [[ -z ${compositionOptions[*]} ]] && return 13
 
     echo "${compositionOptions[@]}"
     return 0
