@@ -70,7 +70,7 @@ QUIET=false
 USE_WIKTIONARY=false
 
 # Process the environment variables
-if [[ -n $HCT_SOURCE_LETTERS && -z $(echo $HCT_SOURCE_LETTERS | sed 's/[GHMTJKPVUSBXYZ]//g') ]]; then
+if [[ -n $HCT_SOURCE_LETTERS && -z $(echo "$HCT_SOURCE_LETTERS" | sed 's/[GHMTJKPVUSBXYZ]//g') ]]; then
     SOURCE_LETTERS="$HCT_SOURCE_LETTERS"
 fi
 
@@ -106,7 +106,7 @@ done
 
 # Process the source option letters
 if [[ -n $SOURCE_LETTERS ]]; then
-    if [[ -n $(echo $SOURCE_LETTERS | sed 's/[GHMTJKPVUSBXYZ]//gI') ]]; then
+    if [[ -n $(echo "$SOURCE_LETTERS" | sed 's/[GHMTJKPVUSBXYZ]//gI') ]]; then
         if [[ $QUIET == false ]]; then
             echo "htc-$progName: invalid argument for the option 's|source'" >&2
             echo "$helpHint" >&2
