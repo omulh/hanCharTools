@@ -32,6 +32,7 @@ Options:
                     the default value for this option is 'M'
                     this option is ignored when using the 'definition' option
 
+  -V, --version     show version information and exit
   -h, --help        show this help message and exit"
 
 readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")

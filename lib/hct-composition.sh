@@ -31,6 +31,7 @@ Options:
   -w, --wiktionary  retrieve the composition information from Wiktionary
                     instead of the default local IDS database
 
+  -V, --version     show version information and exit
   -h, --help        show this help message and exit
 
   The differen letters and the corresponding regions to be

@@ -45,6 +45,7 @@ Options:
       --no-progress suppress the progress status from the stderr stream;
                     this option is ignored if the input is a single character
 
+  -V, --version     show version information and exit
   -h, --help        show this help message and exit
 
 Environment variables:
