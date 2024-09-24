@@ -3,11 +3,12 @@
 readonly progName='hct'
 readonly progVersion=0.9
 readonly helpHint="Try '$progName --help' for more information."
-readonly helpText="Usage: $progName [-h][--help] | [command]
-Get information about Chinese characters.
+readonly helpText="Usage: $progName [-V|version][-h|--help] | [command]
+Get information about Han characters, aka Chinese characters.
 
 Options:
-  -h, --help    show this text help and exit
+  -V, --version  show version information and exit
+  -h, --help     show this text help and exit
 
 Available commands:
   composition
