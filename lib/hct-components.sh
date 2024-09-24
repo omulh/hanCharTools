@@ -309,11 +309,11 @@ get_character_components () {
         return 30
     fi
 
-   # If there is only one valid components option, choose it
-   if [[ ${#validComponentsOptions[@]} == 1 ]]; then
-       chosenComponentsOption="${validComponentsOptions[*]}"
-   # Otherwise, use one of the tiebreaker rules
-   else
+    # If there is only one valid components option, choose it
+    if [[ ${#validComponentsOptions[@]} == 1 ]]; then
+        chosenComponentsOption="${validComponentsOptions[*]}"
+    # Otherwise, use one of the tiebreaker rules
+    else
         # If tiebreaker rule is set to 'f', chose the first components option
         if [[ $TIEBREAKER_RULE == f ]]; then
             chosenComponentsOption="${validComponentsOptions[0]}"
@@ -336,7 +336,7 @@ get_character_components () {
                 echo "$givenChar <- decomposition = $chosenComponentsOption (chosen by 'length' tiebreaker rule)" >&2
             fi
         fi
-   fi
+    fi
 
     echo "$chosenComponentsOption"
     return 0
