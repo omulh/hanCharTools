@@ -1,0 +1,177 @@
+.TH HCT-READING 1 "Version 1.0"
+.
+.SH NAME
+hct\-reading \- get the pronunciation of Han characters, aka Chinese characters
+.
+.SH SYNOPSIS
+.B hct reading
+.RB [ \-h ]
+.RB [ \-\-help ]
+.br
+.B hct reading
+.RB [ \-V ]
+.RB [ \-\-version ]
+.br
+.B hct reading
+.RB [ \-dq ]
+.RB [ \-s
+.IR SOURCE_CHAR ] \ INPUT
+.PP
+(See the
+.B OPTIONS
+section for alternative long option names)
+.
+.SH DESCRIPTION
+.B hct\-reading
+is a tool to retrieve pronunciation information, aka the reading, of a given
+Han character in different languages.
+.br
+.B hct\-reading
+can alternatively retrieve a basic definition of a given Han character.
+.PP
+Han characters are normally associated with Chinese language,
+however, Chinese is not the only language that uses them.
+.br
+.B hct\-reading
+can provide pronunciation information for the following languages:
+Mandarin, Cantonese, Japanese, Sino-Japanese, Korean, and Vietnamese.
+.PP
+A character or a list of characters must be given as an input.
+.TP
+\fIINPUT\fR shall be one of the following:
+A single Han character,
+.br
+A file containing a list of single Han characters separated by newlines, or
+.br
+A single hyphen '\-', in which case the input is read from the stdin stream.
+.PP
+The queried information will be printed to the stdout stream,
+and it will be formatted according to the input type.
+.TP
+Output when a single character is given as an input:
+Print the queried pronunciation or definition for the given character
+to the stdout stream.
+.br
+If an error is encountered for the given character, print an explanatory
+error message to the stderr stream.
+.TP
+Output when a list of characters is given as an input:
+For each of the listed characters, print the given character and the queried
+pronunciation or definition separated by a single tab character to the
+stdout stream.
+.br
+If an error is encountered for any of the listed characters, print the given
+character and the error code separated by a single tab character to the
+stdout stream.
+.br
+Additionally, if the stdout stream is not going to a terminal, for instance
+when piping it to a file, a brief summary of the used options is included in
+the output.
+.br
+Finally, a progress status message is also shown at the bottom of the
+resulting character list as it prints.
+The progress status is printed to the stderr stream.
+.
+.SH OPTIONS
+Mandatory arguments to long options are mandatory for short options too.
+.TP
+.BR \-d , \ \-\-definition
+Get a basic definition for the given input instead of its pronunciation.
+.TP
+.BR \-q , \ \-\-quiet
+Suppress error messages from the stderr stream.
+.TP
+\fB\-s\fR, \fB\-\-source \fISOURCE_CHAR\fR
+Retrieve the pronunciation for the language that corresponds to
+\fISOURCE_CHAR\fR.
+.br
+A single character out of
+.RB [ CKMOUV ]
+must be provided, which correspond to
+the supported languages as follows:
+.br
+.B C
+-> Cantonese
+.br
+.B K
+-> Korean
+.br
+.B M
+-> Mandarin
+.br
+.B O
+-> Sino-Japanese (On)
+.br
+.B U
+-> Japanese (Kun)
+.br
+.B V
+-> Vietnamese
+.IP
+Mandarin language is used by default when this option is not specified.
+.br
+This option is ignored when using the
+.B \-\-definition
+option.
+.TP
+.BR \-V , \ \-\-version
+Show version information and exit.
+.TP
+.BR \-h , \ \-\-help
+Show the help message and exit.
+.
+.SH EXIT STATUS
+.TP
+.B 0
+Character or file processed correctly.
+.TP
+.B 1
+An invalid command line option was given.
+.TP
+.B 2
+An invalid argument for a command line option was given.
+.TP
+.B 3
+One of the internal database files was not found.
+.TP
+.B 10
+The given string has more than one character.
+.TP
+.B 20
+The given character is not present in the IDS database.
+.TP
+.B 21
+The given character is not present in the Readings database.
+.TP
+.B 22
+The given character has no pronunciation information for the selected source.
+.TP
+.B 23
+The given character has no definition information for the selected source.
+.
+.SH EXAMPLES
+.TP
+.BR "hct reading" \ 和
+Print the Mandarin pronunciation of 和.
+.TP
+.BR "hct reading" \ 25-chars.txt \ \-s \ C
+Print the Cantonese pronunciation of all the characters in the specified file.
+.TP
+.RB "tail \-n5 100-chars.txt | " "hct reading" " \- " "\-\-definition"
+Print the definition of 5 characters, which are piped from the
+.B tail -n5
+command.
+.TP
+.RB "head -n100 5000-chars.txt | " "hct reading" " \- > 100-chars-reading.txt"
+Print the Mandarin pronunciation of 100 characters, which are piped from the
+.B head -n100
+command and pipe the output into the specified file.
+.
+.SH SEE ALSO
+.BR hct-composition(1),
+.BR hct-components(1),
+.BR hct-variants(1)
+.
+.SH BUGS
+Bugs can be reported and filed at
+https://github.com/omulh/HanCharTools/issues
