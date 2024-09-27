@@ -4,10 +4,10 @@ readonly progName='reading'
 readonly progVersion=0.9
 readonly helpHint="Try 'hct $progName --help' for more information."
 readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
-Get the pronunciation (reading) of Han characters, aka Chinese characters, in different language systems.
+Get the pronunciation (reading) of Han characters, aka Chinese characters, in different languages.
 
 Input:
-  A single input argument is accepted, and it must be one of three types:
+  A single input argument is accepted, and it must be one of the following:
   A single character, a file containing a list of single characters separated
   by newlines, or a '-' character to allow reading from the stdin stream.
   If the input argument is longer than one character, it is assumed to be a file.
@@ -18,11 +18,11 @@ Output:
   its reading separated by a single tab character to the stdout stream.
 
 Options:
-  -d, --definition  get a brief definition for the given input instead of its reading
+  -d, --definition  get a brief definition for the given input instead of its pronunciation
   -q, --quiet       suppress error messages from the stderr stream
   -s, --source={CKMOUV}
-                    a single character must be provided, out of C,K,M,O,U,V;
-                    return the reading for the specified system, the options are:
+                    a single character must be provided, out of [CKMOUV];
+                    return the pronunciation for the specified language, the options are:
                     C -> Cantonese
                     K -> Korean
                     M -> Mandarin
