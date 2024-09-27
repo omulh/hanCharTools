@@ -154,24 +154,24 @@ get_character_reading () {
     local givenChar=$1
 
     # Only accept one character at a time
-    [ ${#givenChar} != 1 ] && return 1
+    [ ${#givenChar} != 1 ] && return 10
 
     # Check if the given character is present in the
     # IDS database, and if so, get its unicode number
     local charUnicode
     charUnicode=$(grep -P "\t$givenChar\t" "$IDS_FILE" | sed "s/\t.*//")
-    [[ -z $charUnicode ]] && return 2
+    [[ -z $charUnicode ]] && return 20
 
     # Check if the given character is present in the Readings database
-    ! grep -q "^$charUnicode" "$READINGS_FILE" && return 3
+    ! grep -q "^$charUnicode" "$READINGS_FILE" && return 21
 
     local charReading
     if [[ $GET_DEFINITION == false ]]; then
         charReading=$(grep "$charUnicode.$SOURCE_KEY" "$READINGS_FILE")
-        [[ -z $charReading ]] && return 4
+        [[ -z $charReading ]] && return 22
     else
         charReading=$(grep "$charUnicode.kDefinition" "$READINGS_FILE")
-        [[ -z $charReading ]] && return 5
+        [[ -z $charReading ]] && return 23
     fi
 
     # Extract the reading and return it
@@ -215,18 +215,18 @@ elif [[ ${#INPUT} == 1 ]]; then
         echo "$reading"
     elif [[ $QUIET == false ]]; then
         case $exitCode in
-            2)
+            20)
                 echo "The given character is not present in the IDS database." >&2 ;;
-            3)
+            21)
                 echo "The given character is not present in the Readings database." >&2 ;;
-            4)
+            22)
                 echo "The given character has no reading information for the selected source." >&2 ;;
-            5)
+            23)
                 echo "The given character has no definition information." >&2 ;;
         esac
     fi
     exit $exitCode
-# Otherwise, input comes from stdin
+# If input has more than one character (and comes from stdin)
 else
     lineCount=$(echo "$INPUT" | sed -n '$=')
     processCount=0
