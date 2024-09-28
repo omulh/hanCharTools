@@ -1,0 +1,120 @@
+.TH HCT-DEFINITION 1 "Version 0.9"
+.
+.SH NAME
+hct\-definition \- get a brief definition of single Han characters, aka Chinese characters
+.
+.SH SYNOPSIS
+.B hct definition
+.RB [ \-h ]
+.RB [ \-\-help ]
+.br
+.B hct definition
+.RB [ \-V ]
+.RB [ \-\-version ]
+.br
+.B hct definition
+.RB [ \-q ]
+.I INPUT
+.PP
+(See the
+.B OPTIONS
+section for alternative long option names)
+.
+.SH DESCRIPTION
+.B hct\-definition
+is a tool to retrieve a brief definition of a given Han character.
+.PP
+A character or a list of characters must be given as an input.
+.TP
+\fIINPUT\fR shall be one of the following:
+A single Han character,
+.br
+A file containing a list of single Han characters separated by newlines, or
+.br
+A single hyphen '\-', in which case the input is read from the stdin stream.
+.PP
+The queried definition will be printed to the stdout stream,
+and it will be formatted according to the input type.
+.TP
+Output when a single character is given as an input:
+Print the queried definition for the given character to the stdout stream.
+.br
+If an error is encountered for the given character, print an explanatory
+error message to the stderr stream.
+.TP
+Output when a list of characters is given as an input:
+For each of the listed characters, print the given character and the queried
+definition separated by a single tab character to the stdout stream.
+.br
+If an error is encountered for any of the listed characters, print the given
+character and the error code separated by a single tab character to the
+stdout stream.
+.br
+Additionally, a progress status message is shown at the bottom of the
+resulting character list as it processes.
+The progress status is printed to the stderr stream.
+.
+.SH OPTIONS
+.TP
+.BR \-q , \ \-\-quiet
+Suppress error messages from the stderr stream.
+.TP
+.BR \-V , \ \-\-version
+Show version information and exit.
+.TP
+.BR \-h , \ \-\-help
+Show the help message and exit.
+.
+.SH EXIT STATUS
+.TP
+.B 0
+Character or file processed correctly.
+.TP
+.B 1
+An invalid command line option was given.
+.TP
+.B 3
+An invalid input was given.
+.TP
+.B 4
+One of the internal database files was not found.
+.TP
+.B 10
+The given string has more than one character.
+.TP
+.B 20
+The given character is not present in the IDS database.
+.TP
+.B 21
+The given character is not present in the Readings database.
+.TP
+.B 22
+The given character has no definition information.
+.
+.SH EXAMPLES
+.TP
+.BR "hct definition" \ 么
+Print the definition of 么.
+.TP
+.BR "hct definition" \ 25-chars.txt
+Print the definition of all the characters in the specified file.
+.TP
+.RB "tail \-n5 100-chars.txt | " "hct definition" " \-"
+Print the definition of 5 characters, which are piped from the
+.B tail -n5
+command.
+.TP
+.RB "head -n100 5000-chars.txt | " "hct definition" " \- > 100-chars-definition.txt"
+Print the definition of 100 characters, which are piped from the
+.B head -n100
+command, and pipe the output into the specified file.
+.
+.SH SEE ALSO
+.BR hct-composition(1) ,
+.BR hct-components(1) ,
+.BR hct-reading(1) ,
+.B hct-variants(1)
+.
+.SH BUGS
+Bugs can be reported and filed at
+https://github.com/omulh/HanCharTools/issues
