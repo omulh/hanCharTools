@@ -40,10 +40,10 @@ readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 readonly READINGS_FILE="$SOURCE_DIR/../Unihan/Unihan_Readings.txt"
 
 QUIET=false
-SOURCE_LETTER='M'
+USED_LANGUAGE='mandarin'
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o qs:Vh -l "quiet,source:version,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o ''''''''''''qVh -l "cantonese,japanese,japanese-kun,japanese-on,korean,mandarin,vietnamese,quiet,version,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -55,10 +55,22 @@ eval set -- "$GIVEN_ARGS"
 # Process the command line arguments
 while true; do
     case "$1" in
+        --cantonese )
+            USED_LANGUAGE='cantonese'; shift ;;
+        --japanese )
+            USED_LANGUAGE='japanese'; shift ;;
+        --japanese-kun )
+            USED_LANGUAGE='japanese-kun'; shift ;;
+        --japanese-on )
+            USED_LANGUAGE='japanese-on'; shift ;;
+        --korean )
+            USED_LANGUAGE='korean'; shift ;;
+        --mandarin )
+            USED_LANGUAGE='mandarin'; shift ;;
+        --vietnamese )
+            USED_LANGUAGE='vietnamese'; shift ;;
         -q | --quiet )
             QUIET=true; shift ;;
-        -s | --source )
-            SOURCE_LETTER="$2"; shift 2 ;;
         -V | --version )
             echo "hct $progVersion"; exit 0 ;;
         -h | --help )
@@ -70,35 +82,23 @@ while true; do
     esac
 done
 
-# Process the source option letter
-if [[ ${#SOURCE_LETTER} -gt 1 ]]; then
-    if [[ $QUIET == false ]]; then
-        echo "htc-$progName: only one argument may be given for the option 's|source'" >&2
-        echo "$helpHint" >&2
-    fi
-    exit 2
-elif [[ -n $(echo "$SOURCE_LETTER" | sed 's/[CKMOUV]//gI') ]]; then
-    if [[ $QUIET == false ]]; then
-        echo "htc-$progName: invalid argument for the option 's|source'" >&2
-        echo "$helpHint" >&2
-    fi
-    exit 2
-else
-    case $SOURCE_LETTER in
-        c | C )
-            SOURCE_KEY='kCantonese' ;;
-        k | K )
-            SOURCE_KEY='kKorean' ;;
-        m | M )
-            SOURCE_KEY='kMandarin' ;;
-        o | O )
-            SOURCE_KEY='kJapaneseOn' ;;
-        u | U )
-            SOURCE_KEY='kJapaneseKun' ;;
-        v | V )
-            SOURCE_KEY='kVietnamese' ;;
-    esac
-fi
+# Process the language option
+case $USED_LANGUAGE in
+    cantonese )
+        LANG_KEY='kCantonese' ;;
+    japanese )
+        LANG_KEY='kJapanese' ;;
+    japanese-on )
+        LANG_KEY='kJapaneseOn' ;;
+    japanese-kun )
+        LANG_KEY='kJapaneseKun' ;;
+    korean )
+        LANG_KEY='kKorean' ;;
+    mandarin )
+        LANG_KEY='kMandarin' ;;
+    vietnamese )
+        LANG_KEY='kVietnamese' ;;
+esac
 
 # Process the positional arguments
 if [[ -z $1 ]]; then
@@ -164,7 +164,7 @@ get_character_reading () {
 
     # Check if the given char has a reading for the selected language
     local charReading
-    charReading=$(grep "$charUnicode.$SOURCE_KEY" "$READINGS_FILE")
+    charReading=$(grep "$charUnicode\s$LANG_KEY\s" "$READINGS_FILE")
     [[ -z $charReading ]] && return 22
 
     # Extract the reading and return it
@@ -179,7 +179,7 @@ if [[ -e $INPUT ]]; then
     processCount=0
     if [ ! -t 1 ]; then
         echo "# Used options"
-        echo "# SOURCE_LETTER=$SOURCE_LETTER"
+        echo "# USED_LANGUAGE=$USED_LANGUAGE"
     fi
     while read testedChar; do
         ((processCount++))
@@ -219,7 +219,7 @@ else
     processCount=0
     if [ ! -t 1 ]; then
         echo "# Used options"
-        echo "# SOURCE_LETTER=$SOURCE_LETTER"
+        echo "# USED_LANGUAGE=$USED_LANGUAGE"
     fi
     while read testedChar; do
         ((processCount++))
