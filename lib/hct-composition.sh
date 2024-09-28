@@ -7,18 +7,17 @@ readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
 Get the composition of Han characters, aka Chinese characters.
 
 Input:
-  A single input argument is accepted, and it must be one of three types:
-  A single character, a file containing a list of single characters separated
-  by newlines, or a '-' character to allow reading from the stdin stream.
+  A single input argument is accepted, and it must be one of the following:
+  A single character, a file containing a list of single characters
+  separated by newlines, or a '-' character to allow reading from stdin.
   If the input argument is longer than one character, it is assumed to be a file.
 
 Output:
-  For a single character: print the composition for the given character
-    to the stdout stream; if more than one composition option is available,
-    separate the options with a single whitespace.
-  For a character list: for each of the listed characters, print the character and its
-    composition separated by a single tab character to the stdout stream; if more than
-    one composition option is available, separate the options with a single whitespace.
+  For a single character: print the composition for the given character to stdout;
+    if more than one option is available, separate the options with a single whitespace.
+  For a character list: for each of the listed characters, print the character and
+    its composition separated by a single tab character to stdout;
+    if more than one option is available, separate the options with a single whitespace.
 
 Options:
   -q, --quiet       suppress error messages from the stderr stream
@@ -26,7 +25,7 @@ Options:
                     a string containing the desired source region letter(s) must be provided;
                     when used, filter out composition options that do not contain the
                     specified source letter(s); see below to see the source options;
-                    this option is ignored when using the 'wiktionary' option
+                    this option is ignored when using the --wiktionary option
 
   -w, --wiktionary  retrieve the composition information from Wiktionary
                     instead of the default local IDS database
@@ -35,7 +34,7 @@ Options:
   -h, --help        show this help message and exit
 
   The differen letters and the corresponding regions to be
-  chosen from for the 'source' option are the following:
+  chosen from for the --source option are the following:
   G -> China
   H -> Hong Kong SAR
   M -> Macau SAR

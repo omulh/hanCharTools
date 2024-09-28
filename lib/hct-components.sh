@@ -7,20 +7,20 @@ readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
 Decompose Han characters, aka Chinese characters, into their basic components.
 
 Input:
-  A single input argument is accepted, and it must be one of three types:
-  A single character, a file containing a list of single characters separated
-  by newlines, or a '-' character to allow reading from the stdin stream.
+  A single input argument is accepted, and it must be one of the following:
+  A single character, a file containing a list of single characters
+  separated by newlines, or a '-' character to allow reading from stdin.
   If the input argument is longer than one character, it is assumed to be a file.
 
 Output:
-  For a single character: print the basic components for the given character to the stdout stream.
-  For a character list: for each of the listed characters, print the character and
-  its basic components separated by a single tab character to the stdout stream.
+  For a single character: print the basic components for the given character to stdout.
+  For a character list: for each of the listed characters, print the character
+  and its basic components separated by a single tab character to stdout.
 
 Options:
   -c, --components=FILE
-                    an existing file must be provided; when used, the characters in the file
-                    are to be considered as basic components, in addition to the IDS
+                    an existing file must be provided; when used, the characters in the
+                    file are to be considered as basic components, in addition to the IDS
                     database components (single stroke characters); the provided file
                     should consist of a list of single characters separated by newlines
 
@@ -40,7 +40,7 @@ Options:
                     the default value for this option is 'f'
 
   -v, --verbose     print verbose messages to the stderr stream; when this option
-                    is used, the 'no-progress' option is implicitly enabled
+                    is used, the --no-progress option is implicitly enabled
 
       --no-progress suppress the progress status from the stderr stream;
                     this option is ignored if the input is a single character
