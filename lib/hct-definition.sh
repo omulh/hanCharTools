@@ -60,13 +60,13 @@ if [[ -z $1 ]]; then
         echo "htc-$progName: no input character or file provided." >&2
         echo "$helpHint" >&2
     fi
-    exit 2
+    exit 3
 elif [[ -n $2 ]]; then
     if [[ $QUIET == false ]]; then
         echo "htc-$progName: only one character or file can be provided." >&2
         echo "$helpHint" >&2
     fi
-    exit 2
+    exit 3
 elif [[ $1 == - ]]; then
     if [ -t 0 ]; then
         echo "htc-$progName: argument '-' specified without input on stdin." >&2
@@ -80,7 +80,7 @@ else
             echo "htc-$progName: input file does not exist." >&2
             echo "$helpHint" >&2
         fi
-        exit 2
+        exit 3
     else
         INPUT="$1"
     fi
@@ -91,14 +91,14 @@ if [[ ! -e $IDS_FILE ]]; then
     if [[ $QUIET == false ]]; then
         echo "htc-$progName: IDS database file not found, aborting" >&2
     fi
-    exit 3
+    exit 4
 fi
 # Deal with an invalid Readings file
 if [[ ! -e $READINGS_FILE ]]; then
     if [[ $QUIET == false ]]; then
         echo "htc-$progName: Unihan Readings file not found, aborting" >&2
     fi
-    exit 3
+    exit 4
 fi
 
 get_character_definition () {
