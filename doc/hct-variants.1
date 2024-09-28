@@ -1,0 +1,157 @@
+.TH HCT-VARIANTS 1 "Version 0.9"
+.
+.SH NAME
+hct\-variants \- get the variants, i.e. traditional, simplified or semantic
+variants, of Han characters, aka Chinese characters
+.
+.SH SYNOPSIS
+.B hct variants
+.RB [ \-h ]
+.RB [ \-\-help ]
+.br
+.B hct variants
+.RB [ \-V ]
+.RB [ \-\-version ]
+.br
+.B hct variants
+.RB [ \-q ]
+.I INPUT
+.PP
+(See the
+.B OPTIONS
+section for alternative long option names)
+.
+.SH DESCRIPTION
+.B hct\-variants
+is a tool to retrieve the posbile variants of a given Han character.
+.br
+Variants refer in this context to characters that are equivalent of one
+another in some particular way.
+.br
+On one hand, characters that share the same meaning are referred to as
+semantic variants of each other.
+.br
+On the other hand, Chinese characters may have one or more simplified
+or traditional variants.
+.PP
+A character or a list of characters must be given as an input.
+.TP
+\fIINPUT\fR shall be one of the following:
+A single Han character,
+.br
+A file containing a list of single Han characters separated by newlines, or
+.br
+A single hyphen '\-', in which case the input is read from the stdin stream.
+.PP
+The queried variants will be printed to the stdout stream,
+and will be formatted according to the input type.
+.TP
+Output when a single character is given as an input:
+Print the queried variant for the given character to the stdout stream.
+.br
+If more than one variant character is available, print all the variant
+characters separated by a whitespace.
+.br
+If an error is encountered for the given character, print an explanatory
+error message to the stderr stream.
+.TP
+Output when a list of characters is given as an input:
+For each of the listed characters, print the given character and the queried
+variant separated by a single tab character to the stdout stream.
+.br
+If more than one variant character is available, print all the variant
+characters separated by a whitespace.
+.br
+If an error is encountered for any of the listed characters, print the given
+character and the error code separated by a single tab character to the
+stdout stream.
+.br
+Additionally, if the stdout stream is not going to a terminal, for instance
+when piping it to a file, a brief summary of the used options is included in
+the output.
+.br
+Finally, a progress status message is also shown at the bottom of the
+resulting character list as it processes.
+The progress status is printed to the stderr stream.
+.
+.SH OPTIONS
+.TP
+.B \-\-semantic
+Retrieve the semantic variant(s) for the given input.
+.TP
+.B \-\-simplified
+Retrieve the simplified variant(s) for the given input.
+.TP
+.B \-\-traditional
+Retrieve the traditional variant(s) for the given input.
+.IP
+When multiple variant types are specified, only the last given
+option is considered.
+.br
+If no variant option is specified, the simplified variant(s) are retrieved.
+.TP
+.BR \-q , \ \-\-quiet
+Suppress error messages from the stderr stream.
+.TP
+.BR \-V , \ \-\-version
+Show version information and exit.
+.TP
+.BR \-h , \ \-\-help
+Show the help message and exit.
+.
+.SH EXIT STATUS
+.TP
+.B 0
+Character or file processed correctly.
+.TP
+.B 1
+An invalid command line option was given.
+.TP
+.B 3
+An invalid input was given.
+.TP
+.B 4
+One of the internal database files was not found.
+.TP
+.B 10
+The given string has more than one character.
+.TP
+.B 20
+The given character is not present in the IDS database.
+.TP
+.B 21
+The given character is not present in the Variants database.
+.TP
+.B 22
+The given character has no variants for the selected type.
+.TP
+.B 23
+The given character has no valid variants for the selected type.
+.
+.SH EXAMPLES
+.TP
+.BR "hct variants" \ 鯘
+Print the simplified variants of 鯘.
+.TP
+.BR "hct variants" \ 25-chars.txt \ \-\-semantic
+Print the semantic variants of all the characters in the specified file.
+.TP
+.RB "tail \-n5 100-chars.txt | " "hct variants" " \- " \-\-traditional
+Print the traditional variants of 5 characters, which are piped from the
+.B tail -n5
+command.
+.TP
+.RB "head -n100 5000-chars.txt | " "hct variants" " \- > 100-chars-variants.txt"
+Print the simplified variants of 100 characters, which are piped from the
+.B head -n100
+command and pipe the output into the specified file.
+.
+.SH SEE ALSO
+.BR hct-composition(1) ,
+.BR hct-components(1) ,
+.BR hct-definition(1) ,
+.BR hct-reading(1)
+.
+.SH BUGS
+Bugs can be reported and filed at
+https://github.com/omulh/HanCharTools/issues
