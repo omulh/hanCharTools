@@ -29,7 +29,8 @@ Options:
   -V, --version     show version information and exit
   -h, --help        show this help message and exit
 
-  If no language option is specified, the Mandarin reading is returned"
+  If multiple language options are specified, only the last one given is considered.
+  If no language option is specified, the Mandarin reading is returned."
 
 readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
