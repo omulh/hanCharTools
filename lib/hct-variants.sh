@@ -131,30 +131,30 @@ function get_character_variants {
     local givenChar=$1
 
     # Only accept one character at a time
-    [ ${#givenChar} != 1 ] && return 1
+    [ ${#givenChar} != 1 ] && return 10
 
     # Check if the given character is present in the
     # IDS database, and if so, get its unicode number
     local charUnicode
     charUnicode=$(grep -P "\t$givenChar\t" "$IDS_FILE" | sed "s/\t.*//")
-    [[ -z $charUnicode ]] && return 2
+    [[ -z $charUnicode ]] && return 20
 
     # Check if the given character is present in the Variants database
-    ! grep -q "^$charUnicode" "$VARIANTS_FILE" && return 3
+    ! grep -q "^$charUnicode" "$VARIANTS_FILE" && return 21
 
     # Get the entry's text for the chosen variant type; this consists of one or
     # more unicode numbers separated by blankspaces, i.e. U+1234 plus an extra
     # info source info field for 'semantic' variants in the form of <kSource1
     local charVariants
     charVariants=$(grep "$charUnicode.$VARIANT_KEY" "$VARIANTS_FILE" | sed "s/.*\t//")
-    [[ -z $charVariants ]] && return 4
+    [[ -z $charVariants ]] && return 22
 
     # For 'simplified' and 'traditional' variants, remove from
     # the retrieved unicode numbers the unicode number of the
     # given character itself, which is present for some entries
     if [[ $VARIANT_KEY == kSimplifiedVariant|| $VARIANT_KEY == kTraditionalVariant ]]; then
         charVariants=$(echo "$charVariants" | sed "s/$charUnicode *//")
-        [[ -z $charVariants ]] && return 5
+        [[ -z $charVariants ]] && return 23
     fi
 
     # For 'semantic' variants, put the reference source for the given
@@ -205,13 +205,13 @@ elif [[ ${#INPUT} == 1 ]]; then
         echo "$variants"
     elif [[ $QUIET == false ]]; then
         case $exitCode in
-            2)
+            20)
                 echo "The given character is not present in the IDS database." >&2 ;;
-            3)
+            21)
                 echo "The given character is not present in the Variants database." >&2 ;;
-            4)
+            22)
                 echo "The given character has no variants for the selected type." >&2 ;;
-            5)
+            23)
                 echo "The given character has no valid variants for the selected type." >&2 ;;
         esac
     fi
