@@ -39,12 +39,11 @@ readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
 readonly READINGS_FILE="$SOURCE_DIR/../Unihan/Unihan_Readings.txt"
 
-GET_DEFINITION=false
 QUIET=false
 SOURCE_LETTER='M'
 
 # Parse the command line arguments
-GIVEN_ARGS=$(getopt -n hct-$progName -o dqs:Vh -l "definition,quiet,source:,version,help" -- "$@")
+GIVEN_ARGS=$(getopt -n hct-$progName -o qs:Vh -l "quiet,source:version,help" -- "$@")
 
 # Deal with invalid command line arguments
 if [ $? != 0 ]; then
@@ -56,8 +55,6 @@ eval set -- "$GIVEN_ARGS"
 # Process the command line arguments
 while true; do
     case "$1" in
-        -d | --definition )
-            GET_DEFINITION=true; shift ;;
         -q | --quiet )
             QUIET=true; shift ;;
         -s | --source )
@@ -165,14 +162,10 @@ get_character_reading () {
     # Check if the given character is present in the Readings database
     ! grep -q "^$charUnicode" "$READINGS_FILE" && return 21
 
+    # Check if the given char has a reading for the selected language
     local charReading
-    if [[ $GET_DEFINITION == false ]]; then
-        charReading=$(grep "$charUnicode.$SOURCE_KEY" "$READINGS_FILE")
-        [[ -z $charReading ]] && return 22
-    else
-        charReading=$(grep "$charUnicode.kDefinition" "$READINGS_FILE")
-        [[ -z $charReading ]] && return 23
-    fi
+    charReading=$(grep "$charUnicode.$SOURCE_KEY" "$READINGS_FILE")
+    [[ -z $charReading ]] && return 22
 
     # Extract the reading and return it
     charReading=$(echo "$charReading" | sed "s/.*\t//")
@@ -186,11 +179,7 @@ if [[ -e $INPUT ]]; then
     processCount=0
     if [ ! -t 1 ]; then
         echo "# Used options"
-        if [[ $GET_DEFINITION == false ]]; then
-            echo "# SOURCE_LETTER=$SOURCE_LETTER"
-        else
-            echo "# GET_DEFINITION=$GET_DEFINITION"
-        fi
+        echo "# SOURCE_LETTER=$SOURCE_LETTER"
     fi
     while read testedChar; do
         ((processCount++))
@@ -220,9 +209,7 @@ elif [[ ${#INPUT} == 1 ]]; then
             21)
                 echo "The given character is not present in the Readings database." >&2 ;;
             22)
-                echo "The given character has no reading information for the selected source." >&2 ;;
-            23)
-                echo "The given character has no definition information." >&2 ;;
+                echo "The given character has no reading information for the selected language." >&2 ;;
         esac
     fi
     exit $exitCode
@@ -232,11 +219,7 @@ else
     processCount=0
     if [ ! -t 1 ]; then
         echo "# Used options"
-        if [[ $GET_DEFINITION == false ]]; then
-            echo "# SOURCE_LETTER=$SOURCE_LETTER"
-        else
-            echo "# GET_DEFINITION=$GET_DEFINITION"
-        fi
+        echo "# SOURCE_LETTER=$SOURCE_LETTER"
     fi
     while read testedChar; do
         ((processCount++))
