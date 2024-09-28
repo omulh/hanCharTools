@@ -211,7 +211,7 @@ get_character_components () {
             for _ in $(seq $((nestLevel*4))); do echo -n ' ' >&2; done
             echo "$givenChar <- aborting, string has more than one character" >&2
         fi
-        return 1
+        return 10
     fi
 
     # If using a dedicated components file, check if the given character
@@ -383,11 +383,11 @@ elif [[ ${#INPUT} == 1 ]]; then
         echo "$components"
     elif [[ $QUIET == false ]]; then
         case $exitCode in
-            11)
+            20)
                 echo "The given character is not present in the IDS database." >&2 ;;
-            12)
+            21)
                 echo "The given character has no valid composition options." >&2 ;;
-            13)
+            22)
                 echo "The given character has no composition options for the selected source(s)." >&2 ;;
             30)
                 echo "The given character has no valid decomposition for the selected source(s)." >&2 ;;

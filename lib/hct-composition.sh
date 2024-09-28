@@ -172,13 +172,13 @@ get_character_composition_wikt () {
     local hanCharacterHeadword
     hanCharacterHeadword=$(echo "$html" | grep -m 1 -A 30 '<div class="mw-heading mw-heading3"><h3 id="Han_character">Han character</h3>')
     hanCharacterHeadword=$(echo "$hanCharacterHeadword" | grep '<span class="headword-line"><strong class="Hani headword" lang="mul">')
-    [[ -z $hanCharacterHeadword ]] && return 21
+    [[ -z $hanCharacterHeadword ]] && return 25
 
     # Check if there is composition information present
     local compositionString
     compositionString=$(echo "$hanCharacterHeadword" | grep 'composition')
     compositionString=$(echo "$compositionString" | sed 's/.*composition//')
-    [[ -z $compositionString ]] && return 22
+    [[ -z $compositionString ]] && return 26
 
     # Extract the composition string for the character
     # Remove the html tags
@@ -209,7 +209,7 @@ get_character_composition_ids () {
     # Check if the given character is present in the IDS database
     local compositionString
     compositionString=$(grep -P "\t$givenChar\t" "$IDS_FILE")
-    [[ -z $compositionString ]] && return 11
+    [[ -z $compositionString ]] && return 20
 
     # Remove the text before the composition options
     compositionString=$(echo "$compositionString" | sed "s/.*$givenChar\t//")
@@ -228,7 +228,7 @@ get_character_composition_ids () {
         fi
     done
     # Check if the given character still has at least one valid composition option
-    [[ -z ${compositionOptions[*]} ]] && return 12
+    [[ -z ${compositionOptions[*]} ]] && return 21
 
     # If a source region was specified, filter out composition
     # options that do not have the letter of that source
@@ -240,7 +240,7 @@ get_character_composition_ids () {
         done
     fi
     # Check if the given character still has at least one valid composition option
-    [[ -z ${compositionOptions[*]} ]] && return 13
+    [[ -z ${compositionOptions[*]} ]] && return 22
 
     echo "${compositionOptions[@]}"
     return 0
@@ -292,15 +292,15 @@ elif [[ ${#INPUT} == 1 ]]; then
         echo "$composition"
     elif [[ $QUIET == false ]]; then
         case $exitCode in
-            11)
+            20)
                 echo "The given character is not present in the IDS database." >&2 ;;
-            12)
-                echo "The given character has no valid composition options." >&2 ;;
-            13)
-                echo "The given character has no composition options for the selected source(s)." >&2 ;;
             21)
-                echo "The given character does not have a valid Wiktionary entry." >&2 ;;
+                echo "The given character has no valid composition options." >&2 ;;
             22)
+                echo "The given character has no composition options for the selected source(s)." >&2 ;;
+            25)
+                echo "The given character does not have a valid Wiktionary entry." >&2 ;;
+            26)
                 echo "The Wiktionary entry for the given character has no composition information." >&2 ;;
         esac
     fi
