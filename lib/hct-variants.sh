@@ -7,17 +7,17 @@ readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
 Get the variants, i.e. traditional, simplified or semantic variants, of Han characters, aka Chinese characters.
 
 Input:
-  A single input argument is accepted, and it must be one of three types:
-  A single character, a file containing a list of single characters separated
-  by newlines, or a '-' character to allow reading from the stdin stream.
+  A single input argument is accepted, and it must be one of the following:
+  A single character, a file containing a list of single characters
+  separated by newlines, or a '-' character to allow reading from stdin.
   If the input argument is longer than one character, it is assumed to be a file.
 
 Output:
-  For a single character: print the variants of the chosen type to the stdout stream;
-    if more than one variant is available, separate the options with a single blankspace.
+  For a single character: print the variants of the chosen type to stdout;
+    if more than one option is available, separate the options with a single blankspace.
   For a character list: for each of the listed characters, print the character and
-    its variants separated by a single tab character to the stdout stream; if more
-    than one variant is available, separate the options with a single blankspace.
+    its variants separated by a single tab character to stdout;
+    if more than one option is available, separate the options with a single blankspace.
 
 Options:
   -q, --quiet        suppress error messages from the stderr stream
@@ -27,9 +27,8 @@ Options:
   -V, --version      show version information and exit
   -h, --help         show this help message and exit
 
-  when multiple options are specified, out of 'semantic', 'simplified'
-  and 'traditional', only the last given option is considered; when
-  none of these options is specified, the 'simplified' option is implied"
+  If multiple variant type options are specified, only the last one given is considered.
+  If no variant type option is specified, the simplified variants are returned."
 
 readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
