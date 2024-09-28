@@ -4,36 +4,32 @@ readonly progName='reading'
 readonly progVersion=0.9
 readonly helpHint="Try 'hct $progName --help' for more information."
 readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
-Get the pronunciation (reading) of Han characters, aka Chinese characters, in different languages.
+Get the reading (pronunciation) of Han characters, aka Chinese characters, in different languages.
 
 Input:
   A single input argument is accepted, and it must be one of the following:
-  A single character, a file containing a list of single characters separated
-  by newlines, or a '-' character to allow reading from the stdin stream.
+  A single character, a file containing a list of single characters
+  separated by newlines, or a '-' character to allow reading from stdin.
   If the input argument is longer than one character, it is assumed to be a file.
 
 Output:
-  For a single character: print the reading for the given character to the stdout stream.
-  For a character list: for each of the listed characters, print the character and
-  its reading separated by a single tab character to the stdout stream.
+  For a single character: print the reading for the given character to stdout.
+  For a character list: for each of the listed characters, print the character
+  and its reading separated by a single tab character to stdout.
 
 Options:
-  -d, --definition  get a brief definition for the given input instead of its pronunciation
-  -q, --quiet       suppress error messages from the stderr stream
-  -s, --source={CKMOUV}
-                    a single character must be provided, out of [CKMOUV];
-                    return the pronunciation for the specified language, the options are:
-                    C -> Cantonese
-                    K -> Korean
-                    M -> Mandarin
-                    O -> Japanese On
-                    U -> Japanese Kun
-                    V -> Vietnamese
-                    the default value for this option is 'M'
-                    this option is ignored when using the 'definition' option
-
+      --cantonese       return the Cantonese reading
+      --japanese        return the Japanese reading
+      --japanese-kun    return the Japanese Kun reading
+      --japanese-on     return the Japanese On reading
+      --korean          return the Korean reading
+      --mandarin        return the Mandarin reading
+      --vietnamese      return the Vietnamese reading
+  -q, --quiet           suppress error messages from the stderr stream
   -V, --version     show version information and exit
-  -h, --help        show this help message and exit"
+  -h, --help        show this help message and exit
+
+  If no language option is specified, the Mandarin reading is returned"
 
 readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
