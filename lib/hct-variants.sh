@@ -20,10 +20,10 @@ Output:
     if more than one option is available, separate the options with a single blankspace.
 
 Options:
-  -q, --quiet        suppress error messages from the stderr stream
       --semantic     query for semantic variants of the given character
       --simplified   query for simplivied variants of the given character
       --traditional  query for traditional variants of the given character
+  -q, --quiet        suppress error messages from the stderr stream
   -V, --version      show version information and exit
   -h, --help         show this help message and exit
 
