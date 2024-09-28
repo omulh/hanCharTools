@@ -13,6 +13,7 @@ Options:
 Available commands:
   composition
   components
+  definition
   readings
   variants"
 
@@ -27,7 +28,7 @@ elif [[ $1 == -V || $1 == --version ]]; then
     echo "$progName $progVersion"
     exit 0
 else
-    if [[ $1 == composition || $1 == components || $1 == reading || $1 == variants ]]; then
+    if [[ $1 == composition || $1 == components || $1 == definition || $1 == reading || $1 == variants ]]; then
         exec "$SOURCE_DIR"/lib/hct-"$1".sh "${@:2}"
     else
         echo "$progName: invalid command '$1'" >&2
