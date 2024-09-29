@@ -1,0 +1,247 @@
+.TH HCT-COMPOSITION 1 "Version 0.9"
+.
+.SH NAME
+hct\-composition \- get the composition of Han characters, aka Chinese characters
+.
+.SH SYNOPSIS
+.B hct composition
+.RB [ \-h ]
+.RB [ \-\-help ]
+.br
+.B hct composition
+.RB [ \-V ]
+.RB [ \-\-version ]
+.br
+.B hct composition
+.RB [ \-qw ]
+.RB [ \-s
+.IR SOURCE_LETTERS ]
+.I INPUT
+.PP
+(See the
+.B OPTIONS
+section for alternative long option names)
+.
+.SH DESCRIPTION
+.B hct\-composition
+is a tool to retrieve the composition of a given Han character by making use
+of ideographic description sequences (IDS).
+.PP
+Han characters are normally associated with Chinese language,
+however, Chinese is not the only language that uses them.
+.br
+.B hct\-composition
+also provides information on the source region for each of the composition
+options for a given character.
+.br
+This is given in the form of a letter code, where each of the letters in
+[GHMTJKPVUSBXYZ] represents a source region.
+.PP
+For instance, the retrieved composition information for 周 is as follows:
+.PP
+⿵⺆𠮷(GTJKPV) ⿵⺆⿱𰀁口(H)
+.PP
+Here, the first provided option is said to correspond to the regions that match
+the source letters GTJKPV, whereas the second option is said to correspond to
+the region that corresponds to the source letter H.
+.br
+See the
+.B OPTIONS
+section for a description of the source letters and the corresponding
+source regions.
+.PP
+A character or a list of characters must be given as an input.
+.TP
+\fIINPUT\fR shall be one of the following:
+A single Han character,
+.br
+A file containing a list of single Han characters separated by newlines, or
+.br
+A single hyphen '\-', in which case the input is read from the stdin stream.
+.PP
+The queried composition will be printed to the stdout stream,
+and it will be formatted according to the input type.
+.TP
+Output when a single character is given as an input:
+Print the queried composition for the given character to the stdout stream.
+.br
+If more than one option is available, print all the composition options
+separated by a whitespace.
+.br
+If an error is encountered for the given character, print an explanatory
+error message to the stderr stream.
+.TP
+Output when a list of characters is given as an input:
+For each of the listed characters, print the given character and the queried
+composition separated by a single tab character to the stdout stream.
+.br
+If more than one option is available, print all the composition options
+separated by a whitespace.
+.br
+If an error is encountered for any of the listed characters, print the given
+character and the error code separated by a single tab character to the
+stdout stream.
+.br
+Additionally, if the stdout stream is not going to a terminal, for instance
+when piping it to a file, a brief summary of the used options is included in
+the output.
+.br
+Finally, a progress status message is also shown at the bottom of the
+resulting character list as it processes.
+The progress status is printed to the stderr stream.
+.
+.SH OPTIONS
+.TP
+.BR \-q , \ \-\-quiet
+Suppress error messages from the stderr stream.
+.TP
+\fB\-s\fR, \fB\-\-source \fISOURCE_LETTERS\fR
+Filter out composition options that do not match the desired source region(s).
+.br
+The desired source regions are specified by giving the corresponding
+\fISOURCE_LETTERS\fR argument, which must contain one or more letters out of
+[GHMTJKPVUSBXYZ], where each letter corresponds to the following:
+.IP
+.B G
+-> China
+.br
+.B H
+-> Honk Kong SAR
+.br
+.B M
+-> Macau SAR
+.br
+.B T
+-> TCA / Taiwan
+.br
+.B J
+-> Japan
+.br
+.B K
+-> South Korea
+.br
+.B P
+-> North Korea
+.br
+.B V
+-> Vietnam
+.br
+.B U
+-> Unicode
+.br
+.B S
+-> SAT
+.br
+.B B
+-> UK
+.br
+.B X
+-> Alternative IDS for same glyph structure
+.br
+.B Y
+-> UCS2003 glyphs
+.br
+.B Z
+-> Unifiable or plausible alternative form of the glyph
+.IP
+This option is ignored when using the
+.B --wiktionary
+option.
+.TP
+.BR \-w , \ \-\-wiktionary
+Retrieve the composition information from Wiktionary instead of the default
+local IDS database.
+.br
+This method is comparatively slower, and the output format is not as
+consistent as when using the default local IDS database.
+This might be useful however, to get a composition for the (very few)
+characters that do not have a valid composition in the local database.
+.TP
+.BR \-V , \ \-\-version
+Show version information and exit.
+.TP
+.BR \-h , \ \-\-help
+Show the help message and exit.
+.
+.SH ENVIRONMENT
+.B hct\-composition
+checks for one environment variable on every execution of the command.
+.br
+Environment variables are specially useful to avoid giving arguments
+for a specific option which will be used repeatedly.
+.PP
+Set the value of the variable
+.B HCT_SOURCE_LETTERS
+to implicitly specify an argument for the
+.B \-\-source
+option.
+.PP
+The environment variable's value can be overwritten by specifying
+an argument for the corresponding command line option.
+Environment variables are ignored silently if they do not contain
+a valid argument for the corresponding option.
+.
+.SH EXIT STATUS
+.TP
+.B 0
+Character or file processed correctly.
+.TP
+.B 1
+An invalid command line option was given.
+.TP
+.B 2
+An invalid argument for a command line option was given.
+.TP
+.B 3
+An invalid input was given.
+.TP
+.B 4
+One of the internal database files was not found.
+.TP
+.B 10
+The given string has more than one character.
+.TP
+.B 20
+The given character is not present in the IDS database.
+.TP
+.B 21
+The given character has no valid composition options.
+.TP
+.B 22
+The given character has no composition options for the selected source(s).
+.TP
+.B 25
+The given character does not have a valid Wiktionary entry.
+.TP
+.B 26
+The Wiktionary entry for the given character has no composition information.
+.
+.SH EXAMPLES
+.TP
+.BR "hct composition" \ 周
+Print the composition of 周.
+.TP
+.BR "hct composition" \ 25-chars.txt \ \-s \ GT
+Print the composition of all the characters in the specified file,
+and filter for compositions from the source regions of China (G)
+and Taiwan (T).
+.TP
+.RB "tail \-n5 100-chars.txt | " "hct composition" " \- " \-w
+Print the Wiktionary composition of 5 characters, which are piped from the
+.B tail -n5
+command.
+.TP
+.RB "head -n100 5000-chars.txt | " "hct composition" " \- > 100-chars-reading.txt"
+Print the composition of 100 characters, which are piped from the
+.B head -n100
+command and pipe the output into the specified file.
+.
+.SH SEE ALSO
+.BR hct-components(1) ,
+.BR hct-definition(1) ,
+.BR hct-reading(1) ,
+.BR hct-variants(1)
+.
+.SH BUGS
+Bugs can be reported and filed at
+https://github.com/omulh/HanCharTools/issues
