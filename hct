@@ -3,7 +3,9 @@
 readonly progName='hct'
 readonly progVersion=0.9
 readonly helpHint="Try '$progName --help' for more information."
-readonly helpText="Usage: $progName [-V|version][-h|--help] | [command]
+readonly helpText="Usage:
+  $progName [OPTION]
+  $progName [help] command
 Get information about Han characters, aka Chinese characters.
 
 Options:
@@ -14,8 +16,11 @@ Available commands:
   composition
   components
   definition
-  readings
-  variants"
+  reading
+  variants
+
+If the 'help' keyword is used before a command, open an extended
+help text for the given command, aka its man page."
 
 # Get the script's source dir.
 SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
@@ -27,6 +32,17 @@ if [[ -z $1 || $1 == -h || $1 == --help ]]; then
 elif [[ $1 == -V || $1 == --version ]]; then
     echo "$progName $progVersion"
     exit 0
+elif [[ $1 == help ]]; then
+    if [[ -z $2 ]]; then
+        echo "$progName: a command is required when using the 'help' keyword" >&2
+        echo "$helpHint" >&2
+    elif [[ $2 == composition || $2 == components || $2 == definition || $2 == reading || $2 == variants ]]; then
+        exec man -l "$SOURCE_DIR"/doc/hct-"$2".1
+    else
+        echo "$progName: invalid command '$2'" >&2
+        echo "$helpHint" >&2
+        exit 1
+    fi
 else
     if [[ $1 == composition || $1 == components || $1 == definition || $1 == reading || $1 == variants ]]; then
         exec "$SOURCE_DIR"/lib/hct-"$1".sh "${@:2}"
