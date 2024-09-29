@@ -98,8 +98,9 @@ Suppress error messages from the stderr stream.
 \fB\-s\fR, \fB\-\-source \fISOURCE_LETTERS\fR
 Filter out composition options that do not match the desired source region(s).
 .br
-The desired source regions are specified by giving the corresponding
-\fISOURCE_LETTERS\fR argument, which must contain one or more letters out of
+The desired source regions are specified by the
+.I SOURCE_LETTERS
+argument, which must contain one or more letters out of
 [GHMTJKPVUSBXYZ], where each letter corresponds to the following:
 .IP
 .B G
@@ -226,7 +227,7 @@ Print the composition of all the characters in the specified file,
 and filter for compositions from the source regions of China (G)
 and Taiwan (T).
 .TP
-.RB "tail \-n5 100-chars.txt | " "hct composition" " \- " \-w
+.RB "tail \-n5 100-chars.txt | " "hct composition" \ \- \ \-w
 Print the Wiktionary composition of 5 characters, which are piped from the
 .B tail -n5
 command.
