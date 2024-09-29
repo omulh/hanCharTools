@@ -43,23 +43,10 @@ Options:
                     is used, the --no-progress option is implicitly enabled
 
       --no-progress suppress the progress status from the stderr stream;
-                    this option is ignored if the input is a single character
+                    this option has no effect when the input is a single character
 
   -V, --version     show version information and exit
-  -h, --help        show this help message and exit
-
-Environment variables:
-  Environment variables are specially useful to avoid giving
-  arguments for a specific option which will be used repeatedly.
-  Two environment variables are checked for when using this command:
-
-  HCT_SOURCE_LETTERS, to specify an input for the 'source' option.
-  HCT_COMPONENTS_FILE, to specify an input for the 'components' option.
-
-  The environment variables' value can be overwritten by
-  specifying the corresponding command line arguments.
-  Environment variables are ignored silently if they do
-  not contain a valid argument for the corresponding option."
+  -h, --help        show this help message and exit"
 
 readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
