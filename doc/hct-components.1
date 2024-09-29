@@ -1,0 +1,289 @@
+.TH HCT-COMPONENTS 1 "Version 0.9"
+.
+.SH NAME
+hct\-components \- decompose Han characters, aka Chinese characters, into their basic components
+.
+.SH SYNOPSIS
+.B hct components
+.RB [ \-h ]
+.RB [ \-\-help ]
+.br
+.B hct components
+.RB [ \-V ]
+.RB [ \-\-version ]
+.br
+.B hct components
+.RB [ \-qv ]
+.RB [ \-c
+.IR COMPONENTS_FILE ]
+.RB [ \-s
+.IR SOURCE_LETTERS ]
+.RB [ \-t
+.IR TIEBREAKER_RULE ]
+.I INPUT
+.PP
+(See the
+.B OPTIONS
+section for alternative long option names)
+.
+.SH DESCRIPTION
+.B hct\-components
+is a tool to decompose a given Han character into its most basic components.
+.PP
+In order to work,
+.B hct\-components
+internally makes use of recursive calls to the
+.BR hct\-composition
+command.
+To get a full picture of the decomposition process, also see
+.BR hct\-composition(1) .
+.PP
+By default,
+.B hct\-components
+decomposes the given character into every individual stroke.
+.br
+For instance, the retrieved components for 须 are as follows:
+.PP
+㇒㇒㇒一丿丨𠃌丿丶
+.PP
+However, it is also possible to specify characters other than individual strokes
+as basic components.
+.br
+For instance, if 彡, 丆 and 冂 are considered as basic components,
+then the output becomes:
+.PP
+彡丆冂丿丶
+.PP
+The order of the retrieved components generally matches the order of
+the original character when handwritten.
+.br
+This is however not always true, so
+.B hct\-components
+should not be taken as a stroke order retrieval tool.
+.PP
+A character or a list of characters must be given as an input.
+.TP
+\fIINPUT\fR shall be one of the following:
+A single Han character,
+.br
+A file containing a list of single Han characters separated by newlines, or
+.br
+A single hyphen '\-', in which case the input is read from the stdin stream.
+.PP
+The queried components string will be printed to the stdout stream,
+and it will be formatted according to the input type.
+.TP
+Output when a single character is given as an input:
+Print the queried components string for the given character to the
+stdout stream.
+.br
+If an error is encountered for the given character, print an explanatory
+error message to the stderr stream.
+.TP
+Output when a list of characters is given as an input:
+For each of the listed characters, print the given character and the queried
+components string separated by a single tab character to the stdout stream.
+.br
+If an error is encountered for any of the listed characters, print the given
+character and the error code separated by a single tab character to the
+stdout stream.
+.br
+Additionally, if the stdout stream is not going to a terminal, for instance
+when piping it to a file, a brief summary of the used options is included in
+the output.
+.br
+Finally, a progress status message is also shown at the bottom of the
+resulting character list as it processes.
+The progress status is printed to the stderr stream.
+.
+.SH OPTIONS
+.TP
+\fB\-c\fR, \fB\-\-components \fICOMPONENTS_FILE\fR
+Consider the characters listed in
+.I COMPONENTS_FILE
+as basic components when decomposing the given input.
+.br
+.I COMPONENTS_FILE
+must be an existing file and should consist of a list of single
+characters separated by newlines.
+.IP
+The default single stroke characters are still considered as basic
+components even if this option is used.
+.TP
+.BR \-q , \ \-\-quiet
+Suppress error messages from the stderr stream.
+.TP
+\fB\-s\fR, \fB\-\-source \fISOURCE_LETTERS\fR
+When retrieving the composition of a given character, filter out
+composition options that do not match the desired source region(s).
+This is specified by the
+.I SOURCE_LETTERS
+argument, which must contain one or more letters out of
+[GHMTJKPVUSBXYZ], where each letter corresponds to the following:
+.IP
+.B G
+-> China
+.br
+.B H
+-> Honk Kong SAR
+.br
+.B M
+-> Macau SAR
+.br
+.B T
+-> TCA / Taiwan
+.br
+.B J
+-> Japan
+.br
+.B K
+-> South Korea
+.br
+.B P
+-> North Korea
+.br
+.B V
+-> Vietnam
+.br
+.B U
+-> Unicode
+.br
+.B S
+-> SAT
+.br
+.B B
+-> UK
+.br
+.B X
+-> Alternative IDS for same glyph structure
+.br
+.B Y
+-> UCS2003 glyphs
+.br
+.B Z
+-> Unifiable or plausible alternative form of the glyph
+.IP
+To better understand this option, see the
+.B hct-composition(1)
+command and its identically named option.
+.TP
+\fB\-t\fR, \fB\-\-tiebreaker \fITIEBREAKER_RULE\fR
+Choose how to deal with cases where more than one valid components
+option is available.
+This is specified by the
+.I TIEBREAKER_RULE
+argument, which must be a single letter out of [fl], where each
+letter corresponds to the following:
+.IP
+.B f
+-> first, choose the first available components option
+.br
+.B l
+-> length, choose the shortest available components option
+.IP
+When this option is not specified, the 'first' rule is used.
+.TP
+.BR \-v , \ \-\-verbose
+Print verbose messages to the stderr stream.
+.br
+Verbose messages describe the decomposition and tiebreaking
+process for the currently processed character.
+.IP
+When this option is used, the
+.B \-\-no\-progress
+option is implicitly enabled.
+.TP
+.B \-\-no\-progress
+Suppress the progress status from the stderr stream.
+.br
+This option has no effect when the input is a single character.
+.TP
+.BR \-V , \ \-\-version
+Show version information and exit.
+.TP
+.BR \-h , \ \-\-help
+Show the help message and exit.
+.
+.SH ENVIRONMENT
+.B hct\-components
+checks for two environment variables on every execution of the command.
+.br
+Environment variables are specially useful to avoid giving arguments
+for a specific option which will be used repeatedly.
+.PP
+Set the value of the variable
+.B HCT_SOURCE_LETTERS
+to implicitly specify an argument for the
+.B \-\-source
+option.
+.br
+Set the value of the variable
+.B HCT_COMPONENTS_FILE
+to implicitly specify an argument for the
+.B \-\-components
+option.
+.PP
+The environment variable's value can be overwritten by specifying
+an argument for the corresponding command line option.
+Environment variables are ignored silently if they do not contain
+a valid argument for the corresponding option.
+.
+.SH EXIT STATUS
+.TP
+.B 0
+Character or file processed correctly.
+.TP
+.B 1
+An invalid command line option was given.
+.TP
+.B 2
+An invalid argument for a command line option was given.
+.TP
+.B 3
+An invalid input was given.
+.TP
+.B 4
+One of the internal database files was not found.
+.TP
+.B 10
+The given string has more than one character.
+.TP
+.B 20
+The given character is not present in the IDS database.
+.TP
+.B 21
+The given character has no valid composition options.
+.TP
+.B 22
+The given character has no composition options for the selected source(s).
+.
+.SH EXAMPLES
+.TP
+.BR "hct components" \ 须
+Print the components of 须 down to every individual stroke.
+.TP
+.BR "hct components" \ 25-chars.txt \ \-c \ additional-component-list.txt
+Print the basic components of all the characters in the specified
+file, while doing so, consider the characters in the second
+specified file as basic components.
+.TP
+.RB "tail \-n5 100-chars.txt | " "hct components" \ \- \ \-s \ G
+Print the basic components of 5 characters, which are piped from the
+.B tail -n5
+command, and while doing so, filter for compositions that match
+the source region of China (G).
+.TP
+.RB "head -n100 5000-chars.txt | " "hct components" " \- > 100-chars-components.txt"
+Print the basic components of 100 characters, which are piped from the
+.B head -n100
+command, and pipe the output into the specified file.
+.
+.SH SEE ALSO
+.BR hct-composition(1) ,
+.BR hct-definition(1) ,
+.BR hct-reading(1) ,
+.BR hct-variants(1)
+.
+.SH BUGS
+Bugs can be reported and filed at
+https://github.com/omulh/HanCharTools/issues
