@@ -41,26 +41,35 @@ $ hct composition 𬺷 -w
 
 ### Character components
 
-Get the decomposition of a given character into its most basic elements, which may go down to every individual stroke.  
+Get the decomposition of a given character into its most basic elements, which by default goes down to every individual stroke.  
 ```
-$ hct components 他
-㇒丨𠃌乚丨
+$ hct components 须
+㇒㇒㇒一丿丨𠃌丿丶
 ```
 
-### Character reading and definition
+Specify a set of characters to be used as basic components in addition to individual strokes.  
+For instance, when 彡 and 冂 are chosen as additional basic components.  
+```
+$ hct components 须 -c additional-component-list.txt
+彡一丿冂丿丶
+```
+
+### Character reading
 
 Get the pronunciation, aka the reading, of a given character in different language systems, e.g. Mandarin (the default) or Vietnamese.  
 ```
 $ hct reading 人
 rén
 
-$ hct reading 㕵 -s V
+$ hct reading 㕵 --vietnamese
 uống
 ```
 
+### Character definition
+
 Get the basic definition of a given character.  
 ```
-$ hct reading 和 --definition
+$ hct definition 和
 harmony, peace; peaceful, calm
 ```
 
@@ -96,12 +105,24 @@ $ hct reading 5-chars.txt
 
 For any of the commands, the input may be piped from other commands.  
 ```
-$ head -n5 100-chars.txt | hct reading - --definition
+$ head -n5 100-chars.txt | hct definition -
 的	possessive, adjectival suffix
 一	one; a, an; alone
 是	indeed, yes, right; to be; demonstrative pronoun, this, that
 不	no, not; un-; negative prefix
 了	to finish; particle of completed action
+```
+
+### Help texts
+
+For any of the commands, get a simplified help text.  
+```
+$ hct {command} --help
+```
+
+Or alternatively, open the corresponding local man page with an extended explanation.  
+```
+$ hct help {command}
 ```
 
 ## Acknowledgements
