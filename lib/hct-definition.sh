@@ -1,7 +1,7 @@
 #! /bin/sh
 
 readonly progName='definition'
-readonly progVersion=0.9
+readonly progVersion=1.0
 readonly helpHint="Try 'hct $progName --help' for more information."
 readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
 Get a brief definition of single Han characters, aka Chinese characters.
