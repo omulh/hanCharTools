@@ -1,7 +1,7 @@
 #! /bin/sh
 
 readonly progName='hct'
-readonly progVersion=0.9
+readonly progVersion=1.0
 readonly helpHint="Try '$progName --help' for more information."
 readonly helpText="Usage:
   $progName [OPTION]

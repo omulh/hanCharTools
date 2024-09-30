@@ -1,7 +1,7 @@
 #! /bin/sh
 
 readonly progName='components'
-readonly progVersion=0.9
+readonly progVersion=1.0
 readonly helpHint="Try 'hct $progName --help' for more information."
 readonly helpText="Usage: hct $progName [OPTION]... FILE|CHARACTER
 Decompose Han characters, aka Chinese characters, into their basic components.
