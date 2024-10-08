@@ -52,6 +52,7 @@ Options:
 
 readonly SOURCE_DIR=$(dirname -- "$(readlink -f "$0")")
 readonly IDS_FILE="$SOURCE_DIR/../IDS/IDS.TXT"
+readonly UNENCODED_CHARS_FILE="$SOURCE_DIR/../IDS/Unencoded_Characters.txt"
 
 QUIET=false
 USE_WIKTIONARY=false
@@ -204,6 +205,18 @@ get_character_composition_ids () {
     compositionString=$(echo "$compositionString" | sed "s/\t\*.*//")
     # Remove all the ^ and $ characters
     compositionString=$(echo "$compositionString" | sed 's/[$^]//g')
+    # If there are unencoded components, replace them with their sub-compositions
+    if [[ $compositionString == *{*}* ]]; then
+        local unencodedComponents
+        unencodedComponents=$(echo "$compositionString" | sed 's/^[^}]*{/{/')
+        unencodedComponents=$(echo "$unencodedComponents" | sed 's/}[^{]*{/} {/g')
+        unencodedComponents=$(echo "$unencodedComponents" | sed 's/}[^{]*$/}/')
+        for componentNumber in $unencodedComponents; do
+            componentComposition=$(grep "$componentNumber" "$UNENCODED_CHARS_FILE" | sed "s/.*\t//")
+            compositionString=$(echo "$compositionString" | sed "s/$componentNumber/$componentComposition/")
+        done
+    fi
+
     # Create an array with each of the available composition options
     local compositionOptions=()
     read -a compositionOptions <<< "$compositionString"
