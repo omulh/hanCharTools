@@ -137,11 +137,13 @@ else
 fi
 
 # Deal with an invalid IDS database file
-if [[ $USE_WIKTIONARY == false && ! -e $IDS_FILE ]]; then
-    if [[ $QUIET == false ]]; then
-        echo "htc-$progName: IDS database file not found, aborting" >&2
+if [[ $USE_WIKTIONARY == false ]]; then
+    if [[ ! -e $IDS_FILE || ! -e $UNENCODED_CHARS_FILE ]]; then
+        if [[ $QUIET == false ]]; then
+            echo "htc-$progName: IDS database files not found, aborting" >&2
+        fi
+        exit 4
     fi
-    exit 4
 fi
 
 get_character_composition_wikt () {
