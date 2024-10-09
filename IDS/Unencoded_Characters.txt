@@ -1,4 +1,4 @@
-﻿{1}	bottom of 廌焉舃 (F2A5 )	⿹⿺㇉一灬
+{1}	bottom of 廌焉舃 (F2A5 )	⿹⿺㇉一灬
 {2}	top of 免象 (F0CF )	⿱⺈𫩏
 {3}	top of 夐 (F2A7 )	⿱⺈⿵冂人
 {4}	top of 䝉𫎇 (F313 )	⿱⿻⿰丨丨丷冖
